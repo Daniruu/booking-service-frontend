@@ -3,10 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage'
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
   return (
+    <>
+    <Header />
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -14,6 +18,9 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
+
+    <Footer />
+    </>
   );
 }
 

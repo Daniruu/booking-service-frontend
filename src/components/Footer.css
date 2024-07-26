@@ -1,0 +1,9 @@
+.footer {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #112D4E;
+}
+
+.footer-content {
+    height: 200px;
+}
