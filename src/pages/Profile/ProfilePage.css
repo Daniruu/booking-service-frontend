@@ -1,0 +1,11 @@
+.profile-page {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+    min-height: calc(100vh - 60px);
+}

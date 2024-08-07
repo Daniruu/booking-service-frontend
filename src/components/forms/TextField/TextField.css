@@ -1,0 +1,26 @@
+.text-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.text-field label {
+    display: block;
+    margin-bottom: 10px;
+    font-family: var(--font-family-base);
+}
+
+.text-field input {
+    width: 100%;
+    height: 50px;
+    padding: 0 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    color: #111827;
+    background-color: var(--secondary-color);
+    font-family: var(--font-family-base);
+}
+
+
+.text-field input:focus {
+    outline: 2px solid var(--primary-color);
+}

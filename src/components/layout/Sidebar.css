@@ -1,0 +1,112 @@
+.sidebar {
+    top: 60px;
+    margin-top: 60px;
+    position: sticky;
+    height: calc(100vh - 60px);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.user-card-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-name {
+    text-wrap: nowrap;
+    font-size: 16px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.user-name:hover {
+    color: #0A67D6;
+}
+
+.user-email {
+    font-size: 14px;
+    color: rgba(0, 0, 0, .60);
+}
+
+.user-buttons {
+    margin-bottom: 50px;
+    padding: 0 10px;
+    margin-bottom: 50px;
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    padding: 0 20px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .60);
+    background: white;
+    border: none;
+    cursor: pointer;
+    font-family: "Manrope", sans-serif;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+}
+
+  
+.logout-button:hover {
+    color: #0A67D6;
+    transform: translateY(0);
+    transition-duration: .2s;
+}
+
+.logout-button:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+}
+
+.add-business-button {
+    display: flex;
+    text-align: start;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Manrope", sans-serif;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: rgba(0, 0, 0, .80);
+    cursor: pointer;
+}
+
+.add-business-button:hover{
+    text-decoration: underline;
+}
