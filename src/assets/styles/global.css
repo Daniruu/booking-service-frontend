@@ -1,11 +1,9 @@
-/* Сброс стилей (Normalize.css или CSS Reset) */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  /* Базовые стили для HTML и body */
   html {
     font-size: var(--font-size-base);
   }
@@ -17,11 +15,10 @@
     line-height: 1.6;
   }
   
-  /* Стили для ссылок */
   a {
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: var(--font-weight-semi-bolt);
     font-size: var(--font-size-base);
   }
   
@@ -29,21 +26,18 @@
     text-decoration: underline;
   }
   
-  /* Стили для заголовков */
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: var(--spacing-sm);
-    font-weight: 600;
+    font-weight: var(--font-weight-semi-bolt);
   }
   
-  /* Стили для параграфов */
   p {
     margin-bottom: var(--spacing-md);
   }
   
-  /* Другие общие стили */
   .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
   }
@@ -52,5 +46,34 @@
     margin-top: 60px;
     position: relative;
     height: calc(100vh - 60px);
+  }
+
+  .icon-lg {
+    height: 48px;
+    width: 48px;
+    object-fit: cover;
+  }
+
+  .icon-base {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+  }
+
+  .icon-sm {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+  }
+
+  .icon-extra-sm {
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+    margin-right: var(--spacing-md);
+  }
+
+  .rounded {
+    border-radius: 50%;
   }
   

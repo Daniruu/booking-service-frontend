@@ -1,0 +1,40 @@
+.selection-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius-base);
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semi-bolt);
+    font-family: var(--font-family-base);
+    transform: translate3d(0, 0, 0);
+    transition: all var(--transition-duration);
+    margin-bottom: 10px;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  
+  .selection-button:hover {
+    background-color: #E2EFFF;
+    box-shadow: var(--box-shadow-medium);
+    transform: translateY(0);
+    transition-duration: var(--transition-duration);
+    z-index: 999;
+  }
+  
+  .selection-button:active {
+    box-shadow: var(--box-shadow-strong);
+    transform: translateY(2px);
+    transition-duration: var(--transition-duration);
+  }
+
+  .selection-button.selected {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bolt);
+  }

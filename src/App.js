@@ -5,7 +5,8 @@ import './App.css';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
-import ProfilePage from './pages/Profile/ProfilePage';
+import UserPage from './pages/User/UserPage';
+import BusinessPage from './pages/Business/BusinessPage';
 import Header from './components/layout/Header';
 
 
@@ -19,10 +20,14 @@ function App() {
         <Routes>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
-          <Route path='/profile' element={<ProfilePage /> } />
+          <Route path='/user' element={
+            <RequireAuth>
+              <UserPage />
+            </RequireAuth>
+          } />
+          <Route path='/business' element={<BusinessPage />} />
           <Route path='/' element={<HomePage />} />
         </Routes>
-        {/*Place footer there*/}
       </Router>
     </AuthProvider>
     </>

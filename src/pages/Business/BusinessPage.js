@@ -1,15 +1,14 @@
 import React from 'react';
 import PageLayout from '../../components/layout/PageLayout';
-import './ProfilePage.css';
 
-const ProfilePage = () => {
+const BusinessPage = () => {
     return (
         <PageLayout>
-            <div className='profile-page'>
-                <h3>Profile page</h3>
+            <div className='business-page'>
+                Business Page
             </div>
         </PageLayout>
     );
-};
+}
 
-export default ProfilePage;
+export default BusinessPage;

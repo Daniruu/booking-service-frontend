@@ -19,7 +19,7 @@ const Header = () => {
                     </div>
                     <div className='header-item'>
                         {user ? (
-                            <Link to='/profile'>{user.firstName} {user.secondName}</Link>
+                            <Link to='/user'>{user.firstName}</Link>
                         ) : (
                             <Link to='/login'>Załoguj się / Zarejestruj się</Link>
                         )}

@@ -24,3 +24,8 @@
 .text-field input:focus {
     outline: 2px solid var(--primary-color);
 }
+
+.error {
+    color: red;
+    font-size: var(--font-size-sm);
+}
