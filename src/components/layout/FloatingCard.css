@@ -1,0 +1,6 @@
+.floating-card {
+    background-color: white;
+    border-radius: var(--border-radius-base);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow-medium);
+}

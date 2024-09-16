@@ -1,0 +1,13 @@
+.register-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
+}
+
+.register-form-buttons {
+    width: 100%;
+}
+
+.register-form-buttons button {
+    width: 100%;
+}

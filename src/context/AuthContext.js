@@ -4,33 +4,9 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const isFetchingUser = useRef(false);
-
-  async function getData(token) {
-    const url = 'https://localhost:7217/user';
-    try {
-      console.log('Fetching user data');
-      isFetchingUser.current = true;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-
-      if(response.ok){
-        const json = await response.json();
-        setUser(json);
-      } else if (response.status === 401) {
-        console.log('Token expired, refreshing token...');
-        await refreshAccessToken();
-      } else {
-        throw new Error(`Response status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      isFetchingUser.current = false;
-    }
-  }
+  const isFetchingToken = useRef(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -38,6 +14,38 @@ const AuthProvider = ({ children }) => {
       getData(token);
     }
   }, []);
+
+  async function getData(token) {
+    const url = 'https://localhost:7217/user';
+
+    try {
+      setLoading(true);
+      console.log('Fetching user data');
+      isFetchingUser.current = true;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if(response.ok) {
+        const json = await response.json();
+        setUser(json);
+      } else if (response.status === 401) {
+        console.log('Token expired, refreshing token...');
+        await refreshAccessToken();
+        const newToken = localStorage.getItem('accessToken');
+        await getData(newToken);
+      } else {
+        const responseMessage = await response.text();
+        throw new Error(`Response status: ${response.status}, responseMessage: ${responseMessage}`);
+      }
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      isFetchingUser.current = false;
+      setLoading(false);
+    }
+  }
 
   const login = async (email, password) => {
     const url = 'https://localhost:7217/auth/login';
@@ -53,14 +61,12 @@ const AuthProvider = ({ children }) => {
         const json = await response.json();
         localStorage.setItem('accessToken', json.token);
         localStorage.setItem('refreshToken', json.refreshToken);
-        getData(json.token);
+        await getData(json.token);
       } else {
         const errorText = await response.text();
-        console.error('Login failed:', errorText);
-        throw new Error('Login failed');
+        throw new Error(errorText);
       }
     } catch (error) {
-      console.error('Error:', error);
       throw error;
     }
   };
@@ -68,6 +74,7 @@ const AuthProvider = ({ children }) => {
   const refreshAccessToken = async () => {
     const token = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
+
     if (!refreshToken) {
       console.log('No refresh token available, logging out...');
       logout();
@@ -76,6 +83,7 @@ const AuthProvider = ({ children }) => {
 
     try {
       console.log('Sending refresh token request');
+      isFetchingUser.current = true;
       const response = await fetch('https://localhost:7217/auth/refresh', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -87,7 +95,6 @@ const AuthProvider = ({ children }) => {
         console.log('Token refreshed successfully');
         localStorage.setItem('accessToken', json.token);
         localStorage.setItem('refreshToken', json.refreshToken);
-        getData(json.token);
       } else {
         const errorText = await response.text();
         console.error('Token refresh failed:', errorText);
@@ -96,25 +103,27 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error:', error);
       logout();
+    } finally {
+      isFetchingUser.current = false;
     }
   }
 
-  const register = async (email, password, firstName, secondName, phoneNumber) => {
+  const register = async (registerDto) => {
     const url = 'https://localhost:7217/auth/register';
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, firstName, secondName, phoneNumber })
+        body: JSON.stringify(registerDto)
       });
 
       if (response.ok) {
         alert('Successful registration!');
       } else {
-        throw new Error('Registration failed');
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
       }
     } catch (error) {
-      console.error('Error:', error);
       throw error;
     }
   };
@@ -155,7 +164,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser, refreshAccessToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,0 +1,29 @@
+.time-slot-slider {
+    margin: 30px;
+}
+
+.time-slot-slider button::before {
+    color: var(--text-color);
+}
+
+.time-slot-item {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+}
+
+.time-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family-base);
+}
+
+.time-slot-item:hover {
+    border-color: var(--primary-color);
+}
+
+.time-slot-item.selected {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}

@@ -1,0 +1,47 @@
+.progress-sidebar {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-sm);
+    width: 300px;
+    padding: 20px;
+}
+
+.progress-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bolt);
+    color: #fff;
+}
+
+.progress-step::before {
+    content: '';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.progress-step.active {
+    color: #fff;
+}
+
+.progress-step.active::before {
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.progress-step::before {
+    content: attr(data-index);
+}

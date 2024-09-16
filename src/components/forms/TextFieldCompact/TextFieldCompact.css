@@ -1,0 +1,32 @@
+.text-field-compact {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.text-field-compact label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semi-bolt);
+    color: var(--primary-color);
+}
+
+.text-field-compact input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    color: #111827;
+    background-color: var(--secondary-color);
+    font-family: var(--font-family-base);
+}
+
+.text-field-compact input:focus {
+    outline: 2px solid var(--primary-color);
+}
+
+.text-field-compact.invalid input {
+    outline: 2px solid red;
+}

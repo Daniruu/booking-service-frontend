@@ -5,7 +5,7 @@ import './Header.css';
 
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
 
     return (
         <div className='header'>
@@ -18,10 +18,14 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className='header-item'>
-                        {user ? (
-                            <Link to='/user'>{user.firstName}</Link>
-                        ) : (
-                            <Link to='/login'>Załoguj się / Zarejestruj się</Link>
+                        {loading ? (
+                            <div>Loading...</div>
+                         ) : (
+                            user ? (
+                                <Link to='/user'>{user.firstName}</Link>
+                            ) : (
+                                <Link to='/login'>Załoguj się / Zarejestruj się</Link>
+                            )
                         )}
                     </div>
                 </div>

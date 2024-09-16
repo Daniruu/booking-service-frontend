@@ -1,0 +1,120 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.book-service-modal {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    max-width: 500px;
+    height: 600px;
+    min-height: 100px;
+    width: 100%;
+    box-shadow: var(--box-shadow-medium);
+}
+
+.book-service-modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.book-service-modal .close-button:hover {
+    background-color: var(--background-color);
+}
+
+.book-service-modal .back-button {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.book-service-modal .back-button:hover {
+    background-color: var(--background-color);
+}
+
+.book-service-modal h2 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.book-service-modal-error {
+    text-align: center;
+    height: 27px;
+    margin: 30px;
+}
+
+.reservation-details,
+.reservation-date-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.book-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    font-size: 24px;
+}
+
+.white-space {
+    display: block;
+    height: 27px;
+    margin: 30px;
+}
+
+.reservation-date-time-container {
+    margin-bottom: 40px;
+}
+
+.service-details-container p {
+    margin-bottom: 10;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-top: auto;
+}
+.price-container p {
+    margin: 0;
+}

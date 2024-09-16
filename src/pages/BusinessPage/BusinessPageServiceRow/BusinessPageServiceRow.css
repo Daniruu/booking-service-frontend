@@ -1,0 +1,46 @@
+.business-page-service-row {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    padding: 10px 0;
+    
+    border-top: 1px solid var(--border-color);
+}
+
+.business-page-service-row:first-of-type {
+    border-top: none;
+}
+
+.business-page-service-row-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.business-page-service-row-content h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+}
+.business-page-service-row-content p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: var(--font-weight-light);
+    max-width: 400px;
+}
+
+.business-page-service-row-content .top-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.business-page-service-row .bottom-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.business-page-service-row button {
+    margin-left: 20px;
+    height: 36px;
+}

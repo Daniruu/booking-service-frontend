@@ -1,0 +1,46 @@
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.login-page h2 {
+    margin-bottom: var(--spacing-lg);
+}
+
+.login-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    padding: var(--spacing-lg);
+}
+
+.login-page-content a {
+    font-size: var(--font-size-sm);
+    margin-bottom: 20px;
+}
+
+.login-page-content p {
+    margin-top: var(--spacing-sm);
+}
+
+.or {
+    width: 100%;
+    text-align: center;
+    color: rgb(0, 0, 0, .5);
+    font-size: 14px;
+    font-weight: 600;
+    background: 
+        linear-gradient(#ccc 0 0) left,
+        linear-gradient(#ccc 0 0) right;
+    background-size: 40% 1px;
+    background-repeat: no-repeat;
+    margin: 20px 0;
+}
+
+.error-message {
+    color: red;
+    margin: 0;
+}

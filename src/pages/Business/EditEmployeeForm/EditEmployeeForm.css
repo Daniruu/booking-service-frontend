@@ -1,0 +1,12 @@
+.edit-employee-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.edit-employee-form-button {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 10px;
+}

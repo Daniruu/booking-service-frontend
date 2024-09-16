@@ -1,0 +1,30 @@
+.business-sidebar {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--spacing-md);
+    margin-top: 40px;
+}
+
+.business-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.business-buttons h4 {
+    padding-left: var(--spacing-md);
+    font-size: 14px;
+    font-weight: var(--font-weight-bolt);
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 10px var(--spacing-md) 30px var(--spacing-md);
+}
+
+.logout-button {
+    margin-top: auto;
+}

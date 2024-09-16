@@ -1,0 +1,106 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.reservation-modal {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    max-width: 500px;
+    height: 600px;
+    min-height: 100px;
+    width: 100%;
+    box-shadow: var(--box-shadow-medium);
+}
+
+.reservation-modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.reservation-modal .close-button:hover {
+    background-color: var(--background-color);
+}
+
+.reservation-modal h2 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.reservation-modal-error {
+    text-align: center;
+    height: 27px;
+    margin: 30px;
+}
+
+.reservation-modal .reservation-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+
+.reservation-date-time-container {
+    margin-bottom: 40px;
+}
+
+.reservation-details-container p {
+    margin-bottom: 10;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-top: auto;
+}
+.price-container p {
+    margin: 0;
+}
+
+.reservation-modal-buttons {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.reservation-modal-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.reservation-modal-buttons .edit-button {
+    flex-grow: 1;
+    width: 100%;
+    color: #fff;
+}

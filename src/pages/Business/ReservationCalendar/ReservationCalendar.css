@@ -1,0 +1,75 @@
+.reservation-calendar-header {
+    position: relative;
+}
+
+.reservation-calendar-header h2 {
+}
+
+.date-picker-toggler {
+    background: none;
+    border: none;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.reservation-calendar-date-picker {
+    display: block;
+    position: absolute;
+    width: 400px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow-medium);
+    z-index: 1000;
+}
+
+.set-today-button {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 10px 15px;
+    color: var(--text-color);
+    font-weight: var(--font-weight-semi-bolt);
+    font-family: var(--font-family-base);
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.time-scale {
+    position: relative;
+    width: 50px; /* Ширина колонки с часами */
+}
+
+.reservation-time-slot {
+    height: 50px; /* Высота одного часа */
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.employee-column {
+    position: relative;
+    max-width: 400px; /* Ширина колонки сотрудника */
+    margin-right: 10px;
+}
+
+.employee-schedule {
+    position: relative;
+    border: 1px solid #ccc;
+    height: 1200px; /* Высота для 24 часов (100px на каждый час) */
+    overflow: hidden;
+}
+
+.reservation-card {
+    position: absolute;
+    width: 100%;
+    background-color: #f9c74f;
+    border: 1px solid #f8961e;
+    border-radius: 4px;
+    padding: 5px;
+    box-sizing: border-box;
+    color: #333;
+}

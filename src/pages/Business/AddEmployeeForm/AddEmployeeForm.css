@@ -1,0 +1,12 @@
+.add-employee-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.add-employee-form-button {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 10px;
+}

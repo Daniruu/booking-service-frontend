@@ -1,0 +1,33 @@
+.secondary-button {
+  display: inline-block;
+  min-width: 100px;
+  height: 40px;
+  background-color: white;
+  color: rgba(0,0,0,.8);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+  transition: all var(--transition-duration);
+}
+
+.secondary-button:hover {
+  border-color: #325d92;
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  transform: translateY(0);
+  transition-duration: .2s;
+}
+
+.secondary-button:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.secondary-button.large {
+  height: 50px;
+}

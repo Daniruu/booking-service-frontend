@@ -1,0 +1,23 @@
+.employee-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 15px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow-medium);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.employee-row:hover {
+    color: var(--primary-color);
+    background-color: aliceblue;
+}
+
+.employee-row span {
+    margin-left: 10px;
+    color: var(--primary-color);
+}

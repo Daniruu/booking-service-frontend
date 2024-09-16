@@ -1,0 +1,39 @@
+.working-hours {
+    width: 100%;
+    padding: var(--spacing-lg);
+}
+
+.working-hours h2 {
+    margin-bottom: 20px;
+}
+
+.working-hours ul {
+    list-style: none;
+    padding: 0;
+}
+
+.working-hours-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.working-hours-item .day-info {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.working-hours-item .day-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+input[type="time"] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

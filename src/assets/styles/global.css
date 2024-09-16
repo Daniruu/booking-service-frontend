@@ -27,7 +27,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
     font-weight: var(--font-weight-semi-bolt);
   }
   
@@ -75,5 +75,32 @@
 
   .rounded {
     border-radius: 50%;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    width: 100%;
+  }
+
+  .error {
+    color: red;
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 999;
   }
   

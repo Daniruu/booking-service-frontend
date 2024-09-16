@@ -1,0 +1,71 @@
+.working-hours-form {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--box-shadow-medium);
+    margin-top: 10px;
+}
+
+.working-day-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.working-day-content {
+    display: flex;
+    gap: 10px;
+}
+
+.working-day-content p {
+    margin: 0;
+}
+
+.working-day-content input {
+    font-family: var(--font-family-base);
+    line-height: 1.6;
+}
+
+.working-day-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.edit-working-hours-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.edit-working-hours-button:hover {
+    background-color: var(--background-color);
+}
+
+.delete-working-hours-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 19px;
+    color: var(--text-color);
+}
+
+.delete-working-hours-button:hover {
+    background-color: var(--background-color);
+}

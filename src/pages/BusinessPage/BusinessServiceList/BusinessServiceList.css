@@ -1,0 +1,11 @@
+.business-service-list {
+}
+
+.business-service-group {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.business-service-group h3 {
+    margin-bottom: 5px;
+}

@@ -1,0 +1,42 @@
+.add-business-form {
+    display: flex;
+    flex-direction: row;
+    padding: var(--spacing-lg);
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--box-shadow-medium);
+}
+
+.add-business-form h2 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.add-business-form-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--spacing-lg);
+    min-width: 440px;
+    min-height: 540px;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.form-buttons.single-button {
+    justify-content: flex-end;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
