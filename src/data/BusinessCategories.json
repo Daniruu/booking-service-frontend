@@ -1,0 +1,39 @@
+[
+    {
+      "id": "1",
+      "name": "Barbershop"
+    },
+    {
+      "id": "2",
+      "name": "Salon kosmetyczny"
+    },
+    {
+      "id": "3",
+      "name": "Masaż"
+    },
+    {
+      "id": "4",
+      "name": "Fryzjer"
+    },
+    {
+      "id": "5",
+      "name": "Paznokcie"
+    },
+    {
+        "id": "6",
+        "name": "Fizjoterapia"
+    },
+    {
+        "id": "7",
+        "name": "Zdrowie"
+    },
+    {
+        "id": "8",
+        "name": "Motoryzacja"
+    },
+    {
+        "id": "9",
+        "name": "Paznokcie"
+    }
+]
+  
