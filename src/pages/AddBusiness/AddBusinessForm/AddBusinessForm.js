@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { validateAddress, validateEmail, validateKrs, validateNIP, validatePhoneNumber, validateRegon, validateTextField } from '../../../utils/validations';
 import { Autocomplete, Button, Grid2, Paper, Step, StepLabel, Stepper, TextField, Typography } from '@mui/material';
-import { Box, Grid } from '@mui/system';
+import { Box, Grid, Stack } from '@mui/system';
 import { formatPhoneNumber, unformatPhoneNumber } from '../../../utils/formatPhone';
 import { formatPostalCode, unformatPostalCode } from '../../../utils/formatPostalCode';
 import categories from '../../../data/BusinessCategories.json';
@@ -205,7 +205,7 @@ const AddBusinessForm = ({ onSubmit }) => {
         switch (step) {
             case 0:
                 return (
-                    <>
+                    <Stack spacing={2}>
                         <TextField
                             label="Nazwa"
                             name="name"
@@ -261,11 +261,11 @@ const AddBusinessForm = ({ onSubmit }) => {
                             fullWidth
                             placeholder='+48'
                         />
-                    </>
+                    </Stack>
                 );
             case 1:
                 return (
-                    <>
+                    <Stack spacing={2}>
                         <TextField
                             label='NIP'
                             name='nip'
@@ -293,11 +293,11 @@ const AddBusinessForm = ({ onSubmit }) => {
                             helperText={errors.krs}
                             fullWidth
                         />
-                    </>
+                    </Stack>
                 );
             case 2:
                 return (
-                    <>
+                    <Stack spacing={2}>
                         <TextField
                             label='Ulica'
                             name='street'
@@ -362,7 +362,7 @@ const AddBusinessForm = ({ onSubmit }) => {
                                 />
                             </Grid2>
                         </Grid2>
-                    </>
+                    </Stack>
                 );
             default:
                 return null;
