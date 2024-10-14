@@ -23,7 +23,7 @@ This frontend interacts with the BookItEasy backend, which handles authenticatio
 3. **Configure environment variables:**
 Create a .env file in the root of the project and add the following configuration:
 ```bash
-REACT_APP_API_URL=http://localhost:5022
+REACT_APP_BACKEND_URL=http://localhost:5022/api
 ```
 4. **Running the application:** You can start the development server by running the following command:
 ```bash
