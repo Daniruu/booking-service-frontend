@@ -112,7 +112,7 @@ const RegisterForm = ({ onSubmit }) => {
         <div className='register-form-container'>
             <h2>Rejestracja</h2>
             {step > 1 && (
-                <IconButton className='register-form-back-button' aria-label='back' onClick={handlePrevStep}>
+                <IconButton className='register-form-back-button' aria-label='back' onClick={handlePrevStep} sx={{ position: 'absolute', right: 8, top: 8 }}>
                     <ArrowBackIcon />
                 </IconButton>
             )}
