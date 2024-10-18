@@ -5,8 +5,7 @@ export const sendRequest = async (url, options = {}) => {
         ...options,
         method: options.method || 'GET',
         headers: {
-            ...options.headers,
-            'Content-Type': options.headers
+            ...options.headers
         },
         body: options.body ? options.body : undefined
     });

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useCallback, useContext, useRef } from 'react';
 import { useNotification } from './NotificationContext';
 import { handleError } from '../utils/errorHandler';
+import { sendRequest } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -13,59 +14,41 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (registerDto) => {
     const url = `${apiUrl}/auth/register`;
-    try {
-      setLoading(true);
-      console.log('Sending register request...');
 
-      const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(registerDto)
+    try {
+      await sendRequest(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registerDto)
       });
 
-      if (response.ok) {
-        const json = await response.json();
-        showNotification('Udało się!', json.message, 'success');
-        return json;
-      } else {
-        await handleError(response);
-      }
+      showNotification('Użytkownik zarejestrowany!', 'Użyj swoich danych aby się zalogować', 'success');
+      return true;
     } catch (error) {
       showNotification('Nie udało się zarejestrować', error.message, 'error');
-      throw error;
-    } finally {
-      setLoading(false);
+      return false;
     }
   };
-
+  
   const login = async (loginDto) => {
     const url = `${apiUrl}/auth/login`;
-    try {
-      setLoading(true);
-      console.log('Sending login request');
 
-      const response = await fetch (url, {
+    try {
+      const data = await sendRequest(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginDto)
       });
 
-      if (response.ok) {
-        const json = await response.json();
-        localStorage.setItem('accessToken', json.accessToken);
-        localStorage.setItem('refreshToken', json.refreshToken);
-        
-        showNotification('Logowanie powiodło się!', 'Jesteś zalogowany', 'success');
-        console.log('Successful login.');
-        setAuth(true);
-      } else {
-        await handleError(response);
-      }
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+
+      showNotification('Logowanie powiodło się!', 'Jesteś zalogowany', 'success');
+      console.log('Successful login.');
+      return true;
     } catch (error) {
       showNotification('Nie udało się zalogować', error.message, 'error');
-      throw error;
-    } finally {
-      setLoading(false);
+      return false;
     }
   };
 

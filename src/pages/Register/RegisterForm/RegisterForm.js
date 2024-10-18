@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { validateEmail, validatePassword, validatePhoneNumber, validateTextField } from '../../../utils/validations';
-import { Button, IconButton, TextField } from '@mui/material';
+import { Button, Card, CardContent, CardHeader, IconButton, Stack, TextField, Typography } from '@mui/material';
 import { formatPhoneNumber, unformatPhoneNumber} from '../../../utils/formatPhone';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './RegisterForm.css';
 
 const RegisterForm = ({ onSubmit }) => {
     const [step, setStep] = useState(1);
@@ -105,21 +104,32 @@ const RegisterForm = ({ onSubmit }) => {
             const { confirmPassword, ...finalDataToSubmit } = dataToSubmit;
             onSubmit(finalDataToSubmit);
         }
-    }
-    
+    };
 
     return (
-        <div className='register-form-container'>
-            <h2>Rejestracja</h2>
+        <Card sx={{ display: 'flex', flexDirection: 'column', minWidth: 360, borderRadius: 2, p: 1, position: 'relative' }} elevation={2}>
+            <CardHeader 
+                title='Rejestracja' 
+                sx={{ 
+                    alignSelf: 'center', 
+                    color: 'text.secondary', 
+                    '& .MuiCardHeader-action': {
+                        marginTop: 0,
+                        marginRight: 0,
+                        marginBottom: 0,
+                        alignSelf: 'center'
+                    } 
+                }}
+            />
             {step > 1 && (
-                <IconButton className='register-form-back-button' aria-label='back' onClick={handlePrevStep} sx={{ position: 'absolute', right: 8, top: 8 }}>
+                <IconButton aria-label='back' onClick={handlePrevStep} sx={{ position: 'absolute', right: 16, top: 16 }}>
                     <ArrowBackIcon />
                 </IconButton>
             )}
+            <CardContent component='form' onSubmit={handleSubmit} noValidate>
             {(step === 1) && (
-                <form className='register-form' onSubmit={handleNextStep} noValidate>
+                <Stack spacing={3}>
                     <TextField 
-                        fullWidth
                         id='outlined-basic'
                         label='Email' 
                         variant='outlined' 
@@ -129,9 +139,9 @@ const RegisterForm = ({ onSubmit }) => {
                         error={errors.email.length > 0}
                         helperText={errors.email}
                         placeholder='user@example.com'
+                        fullWidth
                     />
                     <TextField 
-                        fullWidth
                         type='password'
                         id='outlined-basic' 
                         label='Hasło' 
@@ -141,9 +151,9 @@ const RegisterForm = ({ onSubmit }) => {
                         onChange={handleChange}
                         error={errors.password.length > 0}
                         helperText={errors.password}
+                        fullWidth
                     />
                     <TextField 
-                        fullWidth
                         type='password'
                         id='outlined-basic' 
                         label='Potwierdź hasło' 
@@ -153,16 +163,16 @@ const RegisterForm = ({ onSubmit }) => {
                         onChange={handleChange}
                         error={errors.confirmPassword.length > 0}
                         helperText={errors.confirmPassword}
+                        fullWidth
                     />
-                    <p>Masz już konto? <Link to='/login'>Zaloguj się</Link></p>
-                    <Button variant='contained' onClick={handleNextStep} size='large'>Dalej</Button>
-                </form>
+                    <Typography sx={{ alignSelf: 'center' }}>Masz już konto? <Link to='/login'>Zaloguj się</Link></Typography>
+                    <Button variant='contained' type='button' onClick={handleNextStep} size='large'>Dalej</Button>
+                </Stack>
             )}
 
             {(step === 2) && (
-                <form className='register-form' onSubmit={handleSubmit} noValidate>
+                <Stack spacing={3}>
                     <TextField 
-                        fullWidth
                         id='outlined-basic'
                         label='Imię' 
                         variant='outlined' 
@@ -171,9 +181,9 @@ const RegisterForm = ({ onSubmit }) => {
                         onChange={handleChange}
                         error={errors.name.length > 0}
                         helperText={errors.name}
+                        fullWidth
                     />
                     <TextField 
-                        fullWidth
                         id='outlined-basic'
                         label='Telefon' 
                         variant='outlined' 
@@ -183,12 +193,16 @@ const RegisterForm = ({ onSubmit }) => {
                         error={errors.phone.length > 0}
                         helperText={errors.phone}
                         placeholder='+48'
+                        fullWidth
                     />
-                    <p>Masz już konto? <Link to='/login'>Zaloguj się</Link></p>
+                    <Typography sx={{ alignSelf: 'center' }}>Masz już konto? <Link to='/login'>Zaloguj się</Link></Typography>
                     <Button variant='contained' type='submit' size='large'>Zarejestruj się</Button>
-                </form>
+                </Stack>
             )}
-        </div>
+            </CardContent>
+
+            
+        </Card>
     );
 };
 

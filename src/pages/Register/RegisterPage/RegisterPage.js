@@ -1,34 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
-import { useNotification } from '../../../context/NotificationContext';
+import { Box, Container } from '@mui/material';
 import RegisterForm from '../RegisterForm/RegisterForm';
-import './RegisterPage.css';
-import WideContainer from '../../../components/layout/WideContainer/WideContainer';
-import { Box } from '@mui/material';
 
 const RegisterPage = () => {
     const { register } = useAuth();
-    const { showNotification } = useNotification();
     const navigate = useNavigate();
 
-    const handleRegisterSubmit = async (formData) => {
-        try {
-            await register(formData);
+    const handleRegister = async (registerDto) => {
+        const isRegistered = await register(registerDto);
+        if (isRegistered) {
             navigate('/login');
-            
-        } catch (error) {
-            console.error(error);
-            showNotification('Bąd przy rejestracji', error.message, 'error');
         }
-    }
+    };
 
     return (
-        <WideContainer>
+        <Container>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-                <RegisterForm onSubmit={handleRegisterSubmit} />
+                <RegisterForm onSubmit={handleRegister} />
             </Box>
-        </WideContainer>
+        </Container>
     );
 };
 

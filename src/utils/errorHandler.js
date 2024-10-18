@@ -9,7 +9,13 @@ export const handleError = async (error) => {
                 } else if (json.message) {
                     throw new Error(json.message);
                 } else {
-                    throw new Error("Wystąpił bąd");
+                    throw new Error('Wystąpił bład');
+                }
+            case 401:
+                if(json.message) {
+                    throw new Error(json.message);
+                } else {
+                    throw new Error('Wystąpił bład');
                 }
             case 500:
                 throw new Error(json.message + json.details);
