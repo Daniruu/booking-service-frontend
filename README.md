@@ -41,7 +41,6 @@ The frontend communicates with the backend API for user authentication, booking 
 - React Router
 - Material-UI
 - Fetch (for API requests)
-- Google Cloud Storage
 - Day.js
 
 ### Authentication
