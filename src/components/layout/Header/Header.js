@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../../context/UserContext';
-import { AppBar, Box, Button, Divider, Toolbar, Typography } from '@mui/material';
-import WideContainer from '../WideContainer/WideContainer';
-
+import { AppBar, Box, Button, Container, Divider, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
     const { user } = useUser();
@@ -11,7 +9,7 @@ const Header = () => {
 
     return (
         <AppBar color='inherit' sx={{ boxShadow: 'none' }} >
-            <WideContainer> 
+            <Container> 
                 <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
                     <Link to={'/'} style={{ textDecoration: 'none' }}>
                         <Typography variant='h5' sx={{ flexGrow: 1, cursor: 'pointer', fontWeight: 600 }}>
@@ -35,7 +33,7 @@ const Header = () => {
                         )}
                     </Box>
                 </Toolbar>
-            </WideContainer>
+            </Container>
             <Divider />
         </AppBar>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { Box, Button, Card, CardContent, CardHeader, Collapse, Divider, List, ListItem, Stack, Switch, TextField, Typography } from '@mui/material';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -20,7 +20,7 @@ const daysOfWeek = [
 ];
 
 const WorkingHoursCard = () => {
-    const { business, workingHours, fetchBusinessWorkingHours, updateBusinessWorkingHours } = useBusiness();
+    const { business, workingHours, fetchBusinessWorkingHours, updateBusinessWorkingHours } = useBusinessAccount();
     const [transformedWorkingHours, setTransformedWorkingHours] = useState(null);
     const [expanded, setExpanded] = useState(false);
     const [globalSwitch, setGlobalSwitch] = useState(true);

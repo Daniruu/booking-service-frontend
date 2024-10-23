@@ -1,67 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { useBusiness } from '../../../context/BusinessContext';
-import { useNotification } from '../../../context/NotificationContext';
-import { Box, ListItem, Pagination, Typography, List } from '@mui/material';
+import React from 'react';
+import { Box, ListItem, Pagination, Typography, List, Skeleton } from '@mui/material';
 import BusinessCard from '../BusnessCard/BusinessCard';
 
-const BusinessList = ({ location, category }) => {
-    const { getBusinesses } = useBusiness();
-    const [businesses, setBusinesses] = useState([]);
-    const [pagination, setPagination] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+const BusinessList = ({ businesses, pagination, loading, page, setPage }) => {
 
-    useEffect(() => {
-        const fetchBusinessList = async () => {
-            try {
-                setLoading(true);
-                const queryParams = {
-                    page: page,
-                    limit: limit,
-                    category: category,
-                    location: location
-                };
-                const data = await getBusinesses(queryParams);
-                setBusinesses(data.businesses);
-                setPagination(data.pagination);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchBusinessList();
-    }, [location, category, page, limit, getBusinesses]);
-
-    const handlePageChange = (page) => {
-        setPage(page);
+    const handlePageChange = (event, value) => {
+        setPage(value);
     };
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            {!loading && businesses.length === 0 && (
-                <Typography variant='h6' align='center'>
-                    Brak biznesów
+        <Box>
+            {loading && (
+                <List sx={{ display: 'flex', flexDirection: 'column', gap: 2}}>
+                    {Array.from(new Array(5)).map((_, index) => (
+                        <ListItem key={index} sx={{ display: 'block', p: 0 }}>
+                            <Skeleton variant='rectangular' height={200} sx={{ borderRadius: 2 }} />
+                        </ListItem>
+                    ))}
+                </List>
+            )}
+
+            {!loading && businesses?.length === 0 && (
+                <>
+                <Typography variant='h6' align='center' color='text.secondary' mt={4}>
+                    Nie znaleźliśmy nic zgodnego z twoim zapytaniem 
                 </Typography>
+                <Typography variant='h6' align='center' color='text.secondary' mt={1}>
+                    (╥﹏╥)
+                </Typography>
+                </>
             )}
             
-            <List sx={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: '850px' }}>
+            <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {businesses?.map((business) => (
-                    <ListItem key={business.id} sx={{ display: 'block', padding: 0 }}>
+                    <ListItem key={business.id} sx={{ display: 'block', p: 0 }}>
                         <BusinessCard business={business}/>
                     </ListItem>
                 ))}
             </List>
-            {pagination.totalPages > 1 && (
-                <Box>
-                    <Pagination 
-                        count={pagination.totalPages} 
-                        page={page}
-                        variant='outlined' 
-                        shape='rounded' 
-                        onChange={(e) => handlePageChange(e.target.value)}
-                    />
-                </Box>
+
+            {pagination?.totalPages > 1 && (
+                <Pagination
+                    count={pagination.totalPages} 
+                    page={page}
+                    variant='outlined' 
+                    shape='rounded' 
+                    onChange={handlePageChange}
+                />
             )}
         </Box>
     );

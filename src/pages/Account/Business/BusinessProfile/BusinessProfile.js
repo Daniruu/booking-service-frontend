@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../../../context/UserContext';
-import { useBusiness } from '../../../../context/BusinessContext';
-import { Avatar, Box, Card, Divider, List, ListItem, ListItemIcon, ListItemText, Stack, Tab, Tabs, Toolbar, Typography } from '@mui/material';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
+import { Avatar, Box, Card, Container, Divider, List, ListItem, ListItemIcon, ListItemText, Stack, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import WideContainer from '../../../../components/layout/WideContainer/WideContainer';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import GroupIcon from '@mui/icons-material/Group';
@@ -16,7 +16,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const BusinessProfile = () => {
     const { logout } = useAuth();
     const { user, setUser } = useUser();
-    const { business, fetchBusiness } = useBusiness();
+    const { business, fetchBusiness } = useBusinessAccount();
     const [selectedSection, setSelectedSection] = useState('info');
     const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const BusinessProfile = () => {
     if (!business) return <Typography>Loading...</Typography>;
 
     return (
-        <WideContainer>
+        <Container>
             <Toolbar />
             <Box sx={{ display: 'flex', mb: 8 }}>
                 <Stack direction='column' sx={{ width: 350, bgcolor: 'tansparend', p: 3, height: 'calc(100vh - 64px)', position: 'sticky', top: 64 }} spacing={2}>
@@ -95,13 +95,13 @@ const BusinessProfile = () => {
                     </List>
                 </Stack>
                 
-                <Box component='main' sx={{ flexGrow: 1, p: 4, maxWidth: 900, mx: 'auto' }}>
+                <Box component='main' sx={{ flexGrow: 1, p: 4, width: 1200, mx: 'auto' }}>
                     {selectedSection === 'info' && <BusinessInfo />}
                     {selectedSection === 'employees' && <EmployeesSection />}
                     {selectedSection === 'services' && <ServicesSection />}
                 </Box>
             </Box>
-        </WideContainer>
+        </Container>
     );
 }
 

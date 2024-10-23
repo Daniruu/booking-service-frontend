@@ -18,7 +18,7 @@ const AvatarSlider = ({ employees }) => {
 
     return (
         <Box sx={{ width: '100%', overflow: 'hidden', padding: 0 }}>
-            <Typography variant='body1' color='text.secondary'>Pracownicy</Typography>
+            <Typography variant='body1' color='text.primary'>Pracownicy</Typography>
             <Slider {...settings}>
                 {employees.map((employee, index) => (
                     <Box 

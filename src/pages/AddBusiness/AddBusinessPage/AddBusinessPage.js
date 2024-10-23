@@ -2,11 +2,11 @@ import React from 'react';
 import WideContainer from '../../../components/layout/WideContainer/WideContainer';
 import { Box } from '@mui/material';
 import AddBusinessForm from '../AddBusinessForm/AddBusinessForm';
-import { useBusiness } from '../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../context/BusinessAccountContext';
 import { useNavigate } from 'react-router-dom';
 
 const AddBusinessPage = () => {
-    const { registerBusiness } = useBusiness();
+    const { registerBusiness } = useBusinessAccount();
     const navigate = useNavigate();
 
     const handleRegisterBusiness = async (formData) => {

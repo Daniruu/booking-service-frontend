@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Autocomplete, Box, Button, Card, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Stack, TextField, Typography } from '@mui/material';
 import ExpandMoreButton from '../../../../components/buttons/ExpandMoreButton/ExpandMoreButton';
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { useService } from '../../../../context/ServiceContext';
 import { useNotification } from '../../../../context/NotificationContext';
 import AddIcon from '@mui/icons-material/Add';
@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useEmployee } from '../../../../context/EmployeeContext';
 
 const ServicesCard = () => {
-    const { business } = useBusiness();
+    const { business } = useBusinessAccount();
     const { employees, fetchBusinessEmployees } = useEmployee();
     const { services, addService, fetchBusinessServices, updateBusinessService, deleteBusinessService } = useService();
     const { showNotification } = useNotification();

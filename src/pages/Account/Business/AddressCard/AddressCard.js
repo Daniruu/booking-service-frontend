@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Autocomplete, Button, CardHeader, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from '@mui/material';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { formatPostalCode, unformatPostalCode } from '../../../../utils/formatPostalCode';
 import { validateAddress } from '../../../../utils/validations';
 import LocationSearchingOutlinedIcon from '@mui/icons-material/LocationSearchingOutlined';
@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import regions from '../../../../data/Regions.json';
 
 const AddressCard = () => {
-    const { business, updateBusiness } = useBusiness();
+    const { business, updateBusiness } = useBusinessAccount();
     const [openModal, setOpenModal] = useState(false);
     const [addressData, setAddressData] = useState({
         region: business?.address.region || '',

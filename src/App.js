@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { NotificationProvider } from './context/NotificationContext';
 import { AuthProvider } from './context/AuthContext';
 import { UserProvider, useUser } from './context/UserContext';
-import { NotificationProvider } from './context/NotificationContext';
-import { BookingProvider } from './context/BookingContext';
 import { BusinessProvider } from './context/BusinessContext';
+import { BookingProvider } from './context/BookingContext';
+import { BusinessAccountProvider } from './context/BusinessAccountContext';
 import { EmployeeProvider } from './context/EmployeeContext';
 import { ServiceProvider } from './context/ServiceContext';
 import Notification from './components/layout/Notification/Notification';
@@ -34,48 +35,50 @@ function App() {
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <UserProvider>
-            <BookingProvider>
-              <BusinessProvider>
-                <EmployeeProvider>
-                  <ServiceProvider>
-                    <Router>
-                      <Header />
-                      <Notification />
-                      <Routes>
-                        <Route path='/login' element={
-                          <RedirectIfAuthenticated>
-                            <LoginPage />
+            <BusinessProvider>
+              <BookingProvider>
+                <BusinessAccountProvider>
+                  <EmployeeProvider>
+                    <ServiceProvider>
+                      <Router>
+                        <Header />
+                        <Notification />
+                        <Routes>
+                          <Route path='/login' element={
+                            <RedirectIfAuthenticated>
+                              <LoginPage />
+                            </RedirectIfAuthenticated>
+                          } />
+                          <Route path='/register' element={
+                            <RedirectIfAuthenticated>
+                              <RegisterPage />
                           </RedirectIfAuthenticated>
-                        } />
-                        <Route path='/register' element={
-                          <RedirectIfAuthenticated>
-                            <RegisterPage />
-                        </RedirectIfAuthenticated>
-                        } />
-                        <Route path='/account/user' element={
-                          <RequireAuth>
-                            <UserProfile />
-                          </RequireAuth>
-                        } />
-                        <Route path='/account/business' element={
-                          <RequireAuth>
-                            <BusinessProfile />
-                          </RequireAuth>
-                        } />
-                        <Route path='/business/:businessId' element={
-                          <BusinessPage />
-                        } />
-                        <Route path='/add-business' element={
-                          <AddBusinessPage />
-                        } />
-                        <Route path='/' element={<HomePage />} />
-                      </Routes>
-                      <Footer />
-                    </Router>
-                  </ServiceProvider>
-                </EmployeeProvider>
-              </BusinessProvider>
-            </BookingProvider>
+                          } />
+                          <Route path='/account/user' element={
+                            <RequireAuth>
+                              <UserProfile />
+                            </RequireAuth>
+                          } />
+                          <Route path='/account/business' element={
+                            <RequireAuth>
+                              <BusinessProfile />
+                            </RequireAuth>
+                          } />
+                          <Route path='/business/:businessId' element={
+                            <BusinessPage />
+                          } />
+                          <Route path='/add-business' element={
+                            <AddBusinessPage />
+                          } />
+                          <Route path='/' element={<HomePage />} />
+                        </Routes>
+                        <Footer />
+                      </Router>
+                    </ServiceProvider>
+                  </EmployeeProvider>
+                </BusinessAccountProvider>
+              </BookingProvider>
+            </BusinessProvider>
           </UserProvider>
         </AuthProvider>
       </ThemeProvider>

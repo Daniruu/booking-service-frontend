@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, ListItemIcon, Menu, MenuItem, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@mui/material';
 import { useEmployee } from '../../../../context/EmployeeContext';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { formatPhoneNumber, unformatPhoneNumber } from '../../../../utils/formatPhone';
 import ExpandMoreButton from '../../../../components/buttons/ExpandMoreButton/ExpandMoreButton';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
@@ -13,7 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const EmployeeCard = () => {
-    const { business } = useBusiness();
+    const { business } = useBusinessAccount();
     const { employees, fetchBusinessEmployees, addEmployee, updateEmployee, deleteEmployee } = useEmployee();
     const [expanded, setExpanded] = useState(true);
 

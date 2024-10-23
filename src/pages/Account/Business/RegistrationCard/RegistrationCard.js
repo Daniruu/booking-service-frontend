@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, CardHeader, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from '@mui/material';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { validateKrs, validateNIP, validateRegon } from '../../../../utils/validations';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 const RegistrationCard = () => {
-    const { business, updateBusiness } = useBusiness();
+    const { business, updateBusiness } = useBusinessAccount();
     const [openModal, setOpenModal] = useState(false);
     const [formData, setFormData] = useState({
         nip: business?.nip || '',

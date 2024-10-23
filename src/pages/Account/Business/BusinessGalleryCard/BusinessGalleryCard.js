@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Card, CardContent, CardHeader, Collapse, Divider, IconButton, ImageList, ImageListItem, ImageListItemBar, Skeleton, Stack } from '@mui/material';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import BurstModeOutlinedIcon from '@mui/icons-material/BurstModeOutlined';
 import ExpandMoreButton from '../../../../components/buttons/ExpandMoreButton/ExpandMoreButton';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -9,7 +9,7 @@ import InputFileUpload from '../../../../components/inputs/InputFileUpload';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const BusinessGalleryCard = () => {
-    const { business, images, uploadImage, fetchBusinessImages, setPrimaryImage, deleteImage } = useBusiness();
+    const { business, images, uploadImage, fetchBusinessImages, setPrimaryImage, deleteImage } = useBusinessAccount();
     const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {

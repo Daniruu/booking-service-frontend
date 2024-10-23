@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNotification } from './NotificationContext';
-import { useBusiness } from './BusinessContext';
+import { useBusiness, useBusinessAccount } from './BusinessAccountContext';
 import { sendRequest, sendRequestWithToken } from '../utils/api';
 
 const EmployeeContext = createContext();
@@ -9,7 +9,7 @@ const EmployeeContext = createContext();
 export const EmployeeProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
-    const { setBusiness } = useBusiness();
+    const { setBusiness } = useBusinessAccount();
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const [employees, setEmployees] = useState(null);
 

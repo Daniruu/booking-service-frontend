@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import { Button, CardHeader, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from '@mui/material';
 import { formatPhoneNumber, unformatPhoneNumber } from '../../../../utils/formatPhone';
 import { validateEmail, validatePhoneNumber } from '../../../../utils/validations';
@@ -8,7 +8,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 const ContactCard = () => {
-    const { business, updateBusiness } = useBusiness();
+    const { business, updateBusiness } = useBusinessAccount();
     const [openModal, setOpenModal] = useState(false);
     const [formData, setFormData] = useState({
         email: business?.email || '',

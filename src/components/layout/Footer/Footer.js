@@ -14,13 +14,13 @@ const Footer = () => {
             }}
         >
             <WideContainer>
-                <Typography variant='body1' align='start' sx={{ mt: 1 }}>
+                <Typography variant='body1' align='left' sx={{ mt: 1 }}>
                     Stworzono przez Danila Shuliakouski jako część pracy dyplomowej i portfolio
                 </Typography>
-                <Typography variant='body1' align='start' sx={{ mt: 1 }}>
+                <Typography variant='body1' align='left' sx={{ mt: 1 }}>
                     Aplikacja internetowa do rezerwacji usług online
                 </Typography>
-                <Typography variant='body1' align='start' sx={{ mt: 1 }}>
+                <Typography variant='body1' align='left' sx={{ mt: 1 }}>
                 Kontakt: <Link href="mailto:danila.shuliakouski@gmail.com" color="inherit">danila.shuliakouski@gmail.com</Link>
                 </Typography>
                 <Typography variant='body2' align='center'>

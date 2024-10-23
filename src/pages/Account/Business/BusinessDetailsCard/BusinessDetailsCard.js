@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Autocomplete, Box, Button, Card, CardContent, CardHeader, CardMedia, Chip, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, Skeleton, Stack, Switch, TextField, Typography } from '@mui/material';
-import { useBusiness } from '../../../../context/BusinessContext';
+import { useBusiness, useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddressCard from '../AddressCard/AddressCard';
 import RegistrationCard from '../RegistrationCard/RegistrationCard';
@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import categories from '../../../../data/BusinessCategories.json';
 
 const BusinessDetailsCard = () => {
-    const { business, images, updateBusiness, loading, fetchBusiness, togglePublish } = useBusiness();
+    const { business, images, updateBusiness, loading, fetchBusiness, togglePublish } = useBusinessAccount();
     const [expanded, setExpanded] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [formData, setFormData] = useState({

@@ -1,36 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Box, Typography, CardActionArea, List, ListItem, ListItemText, Button, Skeleton } from '@mui/material';
+import { Card, CardContent, CardMedia, Box, Typography, CardActionArea, List, ListItem, ListItemText } from '@mui/material';
 
-const BusinessCard = ({ business, loading }) => {
+const BusinessCard = ({ business }) => {
     const navigate = useNavigate();
 
     const servicesToDisplay = business?.featuredServices.slice(0, 3);
 
     const handleCardClick = () => {
         navigate(`/business/${business.id}`);
-    }
-
-    if (loading) {
-        if (loading) {
-            return (
-                <Card sx={{ display: 'flex', marginBottom: 2 }}>
-                    <Skeleton animation='wave' variant="rectangular" width={300} height='auto' />
-                    <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: 2 }}>
-                        <Skeleton animation='wave' variant="text" sx={{ fontSize: '2rem', marginBottom: 0 }} />
-                        <Skeleton animation='wave' variant="text" sx={{ fontSize: '1rem', marginBottom: 2 }} />
-                        <Box sx={{ display: 'flex', gap: 1, marginBottom: 1 }}>
-                            <Skeleton animation='wave' variant="rounded" width={250} height='2rem' />
-                            <Skeleton animation='wave' variant="rounded" width={60} height='2rem' />
-                        </Box>
-                        <Box sx={{ display: 'flex', gap: 1}}>
-                            <Skeleton animation='wave' variant="rounded" width={250} height='2rem' />
-                            <Skeleton animation='wave' variant="rounded" width={60} height='2rem' />
-                        </Box>
-                    </Box>
-                </Card>
-            );
-        }
     }
 
     return (
@@ -73,7 +51,7 @@ const BusinessCard = ({ business, loading }) => {
                                 </List>
                             ) : (
                                 <Box mt={2}>
-                                    <Typography variant='body1'>Brak wyróżnionych usług</Typography>
+                                    <Typography variant='body1' color='text.secondary'>Brak wyróżnionych usług</Typography>
                                 </Box>
                             )}
                         </Box>
