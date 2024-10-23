@@ -5,6 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 const PlaceAutocomplete = ({ onPlaceSelected, setSelectedLocation }) => {
     const inputRef = useRef(null);
+    const apiKey = process.env.GOOGLE_MAPS_PLATFORM_API_KEY;
 
     const handleClearSelect =() => {
         setSelectedLocation('');
@@ -34,7 +35,7 @@ const PlaceAutocomplete = ({ onPlaceSelected, setSelectedLocation }) => {
             initAutocomplete();
         } else {
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCS5l6J1DtpuiMwrffFy1VH8meg8_udjf4&libraries=places`;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
             script.async = true;
             script.defer = true;
             script.onload = initAutocomplete;
