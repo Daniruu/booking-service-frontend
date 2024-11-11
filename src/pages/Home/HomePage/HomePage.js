@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Stack, Toolbar } from '@mui/material';
 import FilterableBusinessList from '../FilterableBusinessList/FilterableBusinessList';
 

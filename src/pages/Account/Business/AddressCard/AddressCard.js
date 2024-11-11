@@ -129,11 +129,10 @@ const AddressCard = () => {
             />
             <Divider />
             {openModal && (
-                <Dialog open={openModal} onClose={handleCloseModal}>
+                <Dialog open={openModal} onClose={handleCloseModal} fullWidth maxWidth='sm'>
                     <DialogTitle>Edytuj dane adresowe firmy</DialogTitle>
-                    <Divider />
-                    <DialogContent sx={{ minWidth: 480 }}>
-                        <Stack spacing={3}>
+                    <DialogContent>
+                        <Stack spacing={3} pt={1}>
                             <Autocomplete
                                 options={regions}
                                 getOptionLabel={(option) => option.name}
@@ -145,7 +144,7 @@ const AddressCard = () => {
                                         label='Wojewódzdto'
                                         error={Boolean(errors.region)}
                                         helperText={errors.region}
-                                        variant='standard'
+                                        variant='outlined'
                                     />
                                 )}
                             />
@@ -156,7 +155,7 @@ const AddressCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.city)}
                                 helperText={errors.city}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                             <TextField
@@ -166,7 +165,7 @@ const AddressCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.street)}
                                 helperText={errors.street}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                             <Stack direction='row' spacing={2}>
@@ -177,7 +176,7 @@ const AddressCard = () => {
                                     onChange={handleChange}
                                     error={Boolean(errors.buildingNumber)}
                                     helperText={errors.buildingNumber}
-                                    variant='standard'
+                                    variant='outlined'
                                     fullWidth
                                 />
                                 <TextField
@@ -185,7 +184,7 @@ const AddressCard = () => {
                                     name='roomNumber'
                                     value={addressData.roomNumber}
                                     onChange={handleChange}
-                                    variant='standard'
+                                    variant='outlined'
                                     fullWidth
                                 />
                             </Stack>
@@ -196,7 +195,7 @@ const AddressCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.postalCode)}
                                 helperText={errors.postalCode}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                         </Stack>

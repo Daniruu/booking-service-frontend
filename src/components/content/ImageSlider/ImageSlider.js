@@ -63,7 +63,7 @@ const ImageSlider = ({ images }) => {
     
 
     return (
-        <Card sx={{ height: '400px' }} elevation={2}>
+        <Card sx={{ height: '300px' }} elevation={2}>
             <Slider {...settings}>
                 {images?.map((image, index) => (
                         <CardMedia 
@@ -71,7 +71,7 @@ const ImageSlider = ({ images }) => {
                             component='img'
                             src={image.imageUrl}
                             alt={`Business ${index}`}
-                            sx={{ width: '100%', height: '400px', objectFit: 'conver', position: 'relative' }}
+                            sx={{ width: '100%', height: '300px', objectFit: 'conver', position: 'relative' }}
                         />
                 ))}
             </Slider>

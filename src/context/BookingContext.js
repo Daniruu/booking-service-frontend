@@ -9,12 +9,40 @@ export const BookingProvider = ({ children }) => {
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const { showNotification } = useNotification();
     const { refreshAccessToken } = useAuth();
+    const [userBookings, setUserBookings] = useState(null);
+
+    const fetchUserBookings = async () => {
+        const url = `${apiUrl}/users/bookings`;
+        
+        try {
+            console.log('Fetching user bookings...');
+            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+            
+            console.log("User bookings successfully fetched");
+            setUserBookings(data);
+        } catch (error) {
+            showNotification('Nie udało się pobrać dane rezerwacje', error.message, 'error');
+        }
+    };
+
+    const fetchBookingDetails = async (bookingId) => {
+        const url = `${apiUrl}/bookings/${bookingId}`;
+
+        try {
+            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+
+            console.log('Booking successfuly fetched.');
+            return data;
+        } catch (error) {
+            showNotification('Nie udało się zaadować dane', error.message, 'error');
+        }
+    };
 
     const createBooking = async (createBookingDto) => {
         const url = `${apiUrl}/bookings`;
 
         try {
-            console.log('Sending create booking request: ');
+            console.log('Sending create booking request: ', createBookingDto);
             
             const response = await sendRequestWithToken(url, {
                 method: 'POST',
@@ -31,23 +59,12 @@ export const BookingProvider = ({ children }) => {
         }
     };
 
-    const getBooking = async (bookingId) => {
-        const url = `${apiUrl}/bookings/${bookingId}`;
-
-        try {
-            const bookingData = await sendRequest(url);
-
-            console.log('Booking successfuly fetched.');
-            return bookingData;
-        } catch (error) {
-            showNotification('Nie udało się zaadować dane', error.message, 'error');
-        }
-    };
-
     const updateBooking = async (bookingId, updateBookingDto) => {
         const url = `${apiUrl}/bookings/${bookingId}`;
 
         try {
+            console.log(`Sending update booking request: ${bookingId}`, updateBookingDto);
+
             const response = await sendRequestWithToken(url, {
                 method: 'PUT',
                 headers: {
@@ -55,6 +72,12 @@ export const BookingProvider = ({ children }) => {
                 },
                 body: JSON.stringify(updateBookingDto)
             }, refreshAccessToken);
+
+            setUserBookings(prevBookings =>
+                prevBookings.map(booking =>
+                    booking.id === bookingId ? { ...booking, dateTime: updateBookingDto.dateTime } : booking
+                )
+            );
 
             showNotification('Udało się!', response.message, 'success');
             console.log('Booking updated successfuly');
@@ -64,10 +87,16 @@ export const BookingProvider = ({ children }) => {
     };
 
     const cancelBooking = async (bookingId) => {
-        const url = `${apiUrl}/bookings/${bookingId}`;
+        const url = `${apiUrl}/bookings/${bookingId}/cancel`;
 
         try {
             const response = await sendRequestWithToken(url, { method: 'PUT' }, refreshAccessToken);
+
+            setUserBookings(prevBookings =>
+                prevBookings.map(booking =>
+                    booking.id === bookingId ? { ...booking, status: 'cancelled' } : booking
+                )
+            );
 
             showNotification('Udało się!', response.message, 'success');
             console.log('Booking cancelled successfuly');
@@ -96,7 +125,7 @@ export const BookingProvider = ({ children }) => {
     };
     
     return (
-        <BookingContext.Provider value={{ createBooking, getBooking, updateBooking, cancelBooking, getAvailableTimeSlots }}>
+        <BookingContext.Provider value={{ userBookings, fetchUserBookings, createBooking, fetchBookingDetails, updateBooking, cancelBooking, getAvailableTimeSlots }}>
             {children}
         </BookingContext.Provider>
     );

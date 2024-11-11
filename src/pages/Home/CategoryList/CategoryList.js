@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Chip, List, ListItem, Typography } from '@mui/material';
+import { Box, Chip, Typography } from '@mui/material';
 
 const CategoryList = ({ categories, selectedCategory, setSelectedCategory }) => {
     return (

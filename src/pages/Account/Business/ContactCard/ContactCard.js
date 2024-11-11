@@ -104,11 +104,10 @@ const ContactCard = () => {
             />
             <Divider />
             {openModal && (
-                <Dialog open={openModal} onClose={handleCloseModal}>
+                <Dialog open={openModal} onClose={handleCloseModal} fullWidth maxWidth='xs'>
                     <DialogTitle>Dane kontaktowe</DialogTitle>
-                    <Divider />
-                    <DialogContent sx={{ minWidth: 480 }}>
-                        <Stack spacing={3}>
+                    <DialogContent>
+                        <Stack spacing={3} pt={1}>
                             <TextField
                                 label='Email'
                                 name='email'
@@ -117,7 +116,7 @@ const ContactCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.email)}
                                 helperText={errors.email}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                             <TextField
@@ -127,7 +126,7 @@ const ContactCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.street)}
                                 helperText={errors.street}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                         </Stack>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Divider, Paper, Stack } from '@mui/material';
 import SearchBar from '../SearchBar/SearchBar';
 import PlaceAutocomplete from '../../../components/inputs/PlaceAutocomplete';

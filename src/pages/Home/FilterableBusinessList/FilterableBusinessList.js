@@ -40,7 +40,6 @@ const FilterableBusinessList = () => {
                     <> ( {pagination?.totalRecords} )</>
                 </Typography>
             )}
-            
             <BusinessList 
                 businesses={businesses}
                 pagination={pagination}

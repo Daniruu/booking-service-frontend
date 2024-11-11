@@ -1,19 +1,20 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNotification } from './NotificationContext';
-import { useBusiness, useBusinessAccount } from './BusinessAccountContext';
 import { sendRequest, sendRequestWithToken } from '../utils/api';
+import { useBusinessAccount } from './BusinessAccountContext';
 
 const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
-    const { setBusiness } = useBusinessAccount();
+    const { business } = useBusinessAccount();
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const [employees, setEmployees] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const addEmployee = async (businessId, addEmployeeDto) => {
+    const addEmployee = async (addEmployeeDto, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees`;
 
         try {
@@ -31,7 +32,7 @@ export const EmployeeProvider = ({ children }) => {
         }
     };
 
-    const fetchBusinessEmployees = async (businessId) => {
+    const fetchBusinessEmployees = async (businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees`;
 
         try {
@@ -46,7 +47,7 @@ export const EmployeeProvider = ({ children }) => {
         }
     };
 
-    const updateEmployee = async (businessId, employeeId, updateEmployeeDto) => {
+    const updateEmployee = async (employeeId, updateEmployeeDto, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees/${employeeId}`;
 
         try {
@@ -55,6 +56,18 @@ export const EmployeeProvider = ({ children }) => {
                 body: JSON.stringify(updateEmployeeDto)
             }, refreshAccessToken);
 
+            setEmployees(prevEmployees =>
+                prevEmployees.map(employee =>
+                    employee.id === employeeId ? { 
+                        ...employee,
+                        name: updateEmployeeDto.name,
+                        position: updateEmployeeDto.position,
+                        email: updateEmployeeDto.email,
+                        phone: updateEmployeeDto.phone
+                    } : employee
+                )
+            );
+
             showNotification('Dane pracownika zaktualizowane', response.message, 'success');
             console.log('Employee successfully added.');
         } catch (error) {
@@ -62,7 +75,7 @@ export const EmployeeProvider = ({ children }) => {
         }
     };
 
-    const deleteEmployee = async (businessId, employeeId) => {
+    const deleteEmployee = async (employeeId, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees/${employeeId}`;
 
         try {
@@ -77,10 +90,11 @@ export const EmployeeProvider = ({ children }) => {
         }
     };
 
-    const uploadEmployeeAvatar = async (businessId, employeeId, formData) => {
+    const uploadEmployeeAvatar = async (employeeId, formData, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees/${employeeId}/upload-avatar`;
 
         try {
+            setLoading(true);
             console.log('Uploading employee avatar...');
             const response = await sendRequestWithToken(url, {
                 method: 'POST',
@@ -89,18 +103,19 @@ export const EmployeeProvider = ({ children }) => {
 
             showNotification('Udało się', response.message, 'success');
             
-            setBusiness((prevBusiness) => ({
-                ...prevBusiness,
-                employees: prevBusiness.employees.map(employee =>
+            setEmployees(prevEmployees =>
+                prevEmployees.map(employee =>
                     employee.id === employeeId ? { ...employee, avatarUrl: response.avatarUrl } : employee
                 )
-            }));
+            );
         } catch (error) {
             showNotification('Nie udało się załadować awataru pracownika', error.message, 'error');
+        } finally {
+            setLoading(false);
         }
     };
 
-    const updateEmployeeWorkingHours = async (businessId, employeeId, updateWorkingHoursDto) => {
+    const updateEmployeeWorkingHours = async (employeeId, updateWorkingHoursDto, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees/${employeeId}/working-hours`;
 
         try {
@@ -116,7 +131,7 @@ export const EmployeeProvider = ({ children }) => {
         }
     };
 
-    const getEmployeeWorkingHours = async (businessId, employeeId) => {
+    const getEmployeeWorkingHours = async (employeeId, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/employees/${employeeId}/working-hours`;
 
         try {
@@ -131,7 +146,7 @@ export const EmployeeProvider = ({ children }) => {
     };
 
     return (
-        <EmployeeContext.Provider value = {{ employees, addEmployee, fetchBusinessEmployees, updateEmployee, deleteEmployee, uploadEmployeeAvatar, updateEmployeeWorkingHours, getEmployeeWorkingHours }}>
+        <EmployeeContext.Provider value = {{ employees, loading, addEmployee, fetchBusinessEmployees, updateEmployee, deleteEmployee, uploadEmployeeAvatar, updateEmployeeWorkingHours, getEmployeeWorkingHours }}>
             {children}
         </EmployeeContext.Provider>
     );

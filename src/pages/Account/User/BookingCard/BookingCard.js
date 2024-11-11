@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box, Divider, IconButton, CardActions, Chip } from '@mui/material';
 import { formatDayShort, formatTimeRange, formatWeekDayShort } from '../../../../utils/formatDate';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import BookingDetailsDialog from '../BookingDetailsDialog/BookingDetailsDialog';
 
 const BookingCard = ({ booking }) => {
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleDialogOpen = () => {
+        setDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    };
 
     const statusText = {
         completed: 'Zakończona',
@@ -20,13 +30,20 @@ const BookingCard = ({ booking }) => {
         cancelled: 'error'
     };
 
-
     return (
-        <Card elevation={2} sx={{ width: '100%', display: 'flex', cursor: 'pointer', transition: '0.3s',
-            '&:hover': {
-                boxShadow: 3,
-                transform: 'scale(1.01)',
-            }, }}>
+        <Card 
+            elevation={2} 
+            sx={{ 
+                width: '100%', 
+                display: 'flex', 
+                cursor: 'pointer', 
+                transition: '0.3s',
+                '&:hover': {
+                    boxShadow: 3,
+                    transform: 'scale(1.01)',
+                }, 
+            }}
+        >
             <CardContent sx={{ display: 'flex', flexGrow: 1 }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingRight: 3, paddingLeft: 1 }}>
                     <Typography>{formatWeekDayShort(booking.dateTime)}</Typography>
@@ -54,10 +71,12 @@ const BookingCard = ({ booking }) => {
                 </Box>
             </CardContent>
             <CardActions>
-                <IconButton>
+                <IconButton onClick={handleDialogOpen}>
                     <MoreVertIcon />
                 </IconButton>
             </CardActions>
+
+            <BookingDetailsDialog open={dialogOpen} onClose={handleDialogClose} booking={booking}/>
         </Card>
     );
 };

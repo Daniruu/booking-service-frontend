@@ -133,6 +133,12 @@ export const validateAddress = (address, requiredFields = []) => {
     return errors;
 };
 
-export const validateNumber = (price) => {
+export const validateNumber = (numer) => {
+    /*TO DO */
     return '';
-}
+};
+
+export const validatePrice = (price) => {
+    /*TO DO */
+    return '';
+};

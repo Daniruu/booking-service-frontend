@@ -103,7 +103,7 @@ const BusinessDetailsCard = () => {
         <Card elevation={2} sx={{ minWidth: 600, width: '100%' }}>
             <CardHeader
                 avatar={<InfoOutlinedIcon />}
-                title='Informacje o firmie'
+                title='Dane przedsiębiorstwa'
                 subheader='Zarządzaj danymi przedsiębiorstwa'
                 action={<ExpandMoreButton expand={expanded} onClick={handleExpandClick}/>}
                 sx={{ 
@@ -115,8 +115,6 @@ const BusinessDetailsCard = () => {
                     }
                 }}
             />
-
-            <Divider />
 
             <Collapse in={expanded} timeout='auto' unmountOnExit>
                 {images?.length > 0 && (
@@ -171,11 +169,10 @@ const BusinessDetailsCard = () => {
                 <RegistrationCard />
             </Collapse>
             {openModal && (
-                <Dialog open={openModal} onClose={handleCloseModal}>
+                <Dialog open={openModal} onClose={handleCloseModal} fullWidth maxWidth='sm'>
                     <DialogTitle>Dane podstawowe firmy</DialogTitle>
-                    <Divider />
-                    <DialogContent sx={{ minWidth: 480 }}>
-                        <Stack spacing={3}>
+                    <DialogContent>
+                        <Stack spacing={3} pt={1}>
                             <TextField
                                 label='Nazwa'
                                 name='name'

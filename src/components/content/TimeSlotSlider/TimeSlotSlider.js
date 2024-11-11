@@ -21,6 +21,7 @@ const TimeSlotSlider = ({ serviceId, selectedDate, selectedSlot, onSlotClick }) 
             try {
                 setLoading(true);
                 setError(null);
+                console.log('Fetching time slot in slider...');
                 const data = await getAvailableTimeSlots(serviceId, selectedDate);
                 setSlots(data);
 

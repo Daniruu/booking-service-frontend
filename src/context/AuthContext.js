@@ -6,7 +6,6 @@ import { sendRequest } from '../utils/api';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(false);
   const { showNotification } = useNotification();
   const isTokenRefreshing = useRef(false);
@@ -56,7 +55,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     showNotification('Wylogowanie', 'Użytkownik został wylogowany', 'info');
-    setAuth(false);
     console.log('Account logout');
   };
 
@@ -104,7 +102,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loading, auth, register, login, logout, refreshAccessToken }}>
+    <AuthContext.Provider value={{ loading, register, login, logout, refreshAccessToken }}>
       {children}
     </AuthContext.Provider>
   )

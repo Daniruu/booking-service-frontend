@@ -98,11 +98,10 @@ const RegistrationCard = () => {
             />
             <Divider />
             {openModal && (
-                <Dialog open={openModal} onClose={handleCloseModal}>
+                <Dialog open={openModal} onClose={handleCloseModal} fullWidth maxWidth='xs'>
                     <DialogTitle>Dane rejestracyjne firmy</DialogTitle>
-                    <Divider />
-                    <DialogContent sx={{ minWidth: 480 }}>
-                        <Stack spacing={3}>
+                    <DialogContent>
+                        <Stack spacing={3} pt={1}>
                             <TextField
                                 label='NIP'
                                 name='nip'
@@ -110,7 +109,7 @@ const RegistrationCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.nip)}
                                 helperText={errors.nip}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                             <TextField
@@ -120,7 +119,7 @@ const RegistrationCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.regon)}
                                 helperText={errors.regon}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                             <TextField
@@ -130,7 +129,7 @@ const RegistrationCard = () => {
                                 onChange={handleChange}
                                 error={Boolean(errors.krs)}
                                 helperText={errors.krs}
-                                variant='standard'
+                                variant='outlined'
                                 fullWidth
                             />
                         </Stack>

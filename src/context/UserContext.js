@@ -10,10 +10,10 @@ export const UserProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
     const [user, setUser] = useState(null);
-    const [bookings, setBookings] = useState(null);
     const [loading, setLoading] = useState(false);
     const isFetchingUser = useRef(false);
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
+    const token = localStorage.getItem('accessToken');
 
     const fetchUserData = async () => {
         if (isFetchingUser.current) return;
@@ -37,12 +37,12 @@ export const UserProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('accessToken');
-
         if (token && !isFetchingUser.current) {
             fetchUserData();
+        } else {
+            setUser(null);
         }
-    }, []);
+    }, [token]);
 
     const getUserById = async (userId) => {
         const url = `${apiUrl}/users/${userId}`;
@@ -82,21 +82,6 @@ export const UserProvider = ({ children }) => {
             showNotification('Nie udało się zaktualizować dane użytkownika', error.message, 'error');
         } finally {
             setLoading(false);
-        }
-    };
-
-    const fetchUserBookings = async () => {
-        const url = `${apiUrl}/users/bookings`;
-
-        
-        try {
-            console.log('Fetching user bookings...');
-            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
-            
-            console.log("User bookings successfully fetched");
-            setBookings(data);
-        } catch (error) {
-            showNotification('Nie udało się pobrać dane rezerwacje', error.message, 'error');
         }
     };
 
@@ -147,7 +132,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, bookings, loading, setUser, fetchUserData, getUserById, updateUser, fetchUserBookings, uploadAvatar, deleteAvatar }}>
+        <UserContext.Provider value={{ user, loading, setUser, fetchUserData, getUserById, updateUser, uploadAvatar, deleteAvatar }}>
             {children}
         </UserContext.Provider>
     );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useBusiness } from '../../../context/BusinessContext';
 import { useUser } from '../../../context/UserContext';
-import { Box, Grid2, Skeleton, Typography, Card, CardContent, Divider, Breadcrumbs, Link, Toolbar, List, ListItem, Stack } from '@mui/material';
+import { Box, Grid2, Skeleton, Typography, Card, CardContent, Divider, Breadcrumbs, Link, Toolbar, List, ListItem, Stack, Container } from '@mui/material';
 import { formatPhoneNumber } from '../../../utils/formatPhone';
 import WideContainer from '../../../components/layout/WideContainer/WideContainer';
 import ImageSlider from '../../../components/content/ImageSlider/ImageSlider';
@@ -63,7 +63,7 @@ const BusinessPage = () => {
     };
 
     return (
-        <WideContainer sx={{ minHeight: '100vh' }}>
+        <Container sx={{ minHeight: '100vh' }}>
             <Toolbar />
             <Breadcrumbs sx={{ px: 4, pt: 4 }} separator={<NavigateNextIcon fontSize='small' />}>
                 <Link underline='hover' color='inherit' href='/'>
@@ -73,11 +73,11 @@ const BusinessPage = () => {
             </Breadcrumbs>
 
             <Grid2 container spacing={4} sx={{ padding: 4 }}>
-                <Grid2 item size={{ xs: 12, md: 8.5 }}>
+                <Grid2 item size={{ xs: 12, md: 8 }}>
                     {!loading ? (
                         <ImageSlider images={businessDetails?.images} />
                     ) : (
-                        <Skeleton animation='wave' variant='rounded' height={400} width='100%' />
+                        <Skeleton animation='wave' variant='rounded' height={300} width='100%' />
                     )}
                     
                     <Box mt={2} mb={4}>
@@ -114,7 +114,7 @@ const BusinessPage = () => {
                     
                 </Grid2>
 
-                <Grid2 item size={{ xs: 12, md: 3.5 }}>
+                <Grid2 item size={{ xs: 12, md: 4 }}>
                     <Box sx={{ position: 'sticky', top: '80px' }}>
                         <Card sx={{ mb: 4 }} elevation={2}>
                             <CardContent sx={{ paddingTop: '24px' }}>     
@@ -211,7 +211,7 @@ const BusinessPage = () => {
                     employee={selectedService.employee}
                 />
             )}
-        </WideContainer>
+        </Container>
     );
 }
 

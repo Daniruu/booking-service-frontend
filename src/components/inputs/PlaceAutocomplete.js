@@ -5,7 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 const PlaceAutocomplete = ({ onPlaceSelected, setSelectedLocation }) => {
     const inputRef = useRef(null);
-    const apiKey = process.env.GOOGLE_MAPS_PLATFORM_API_KEY;
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_PLATFORM_API_KEY;
 
     const handleClearSelect =() => {
         setSelectedLocation('');
@@ -15,6 +15,11 @@ const PlaceAutocomplete = ({ onPlaceSelected, setSelectedLocation }) => {
     }
 
     useEffect(() => {
+        if (!apiKey) {
+            console.error('API Key is missing');
+            return;
+        }
+
         const initAutocomplete = () => {
             if (window.google) {
                 const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
@@ -31,15 +36,23 @@ const PlaceAutocomplete = ({ onPlaceSelected, setSelectedLocation }) => {
             }
         };
 
-        if (window.google) {
-            initAutocomplete();
+        if (!window.googleMapsScriptLoadingPromise) {
+            window.googleMapsScriptLoadingPromise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=pl`;
+                script.async = true;
+                script.defer = true;
+                script.onload = () => {
+                    resolve();
+                    initAutocomplete();
+                };
+                script.onerror = (error) => reject(error);
+                document.body.appendChild(script);
+            });
         } else {
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
-            script.async = true;
-            script.defer = true;
-            script.onload = initAutocomplete;
-            document.body.appendChild(script);
+            window.googleMapsScriptLoadingPromise.then(initAutocomplete).catch((error) => {
+                console.error("Failed to load Google Maps API:", error);
+            });
         }
     }, []);
 

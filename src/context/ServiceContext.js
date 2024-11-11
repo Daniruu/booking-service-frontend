@@ -2,16 +2,19 @@ import React, { createContext, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNotification } from './NotificationContext';
 import { sendRequest, sendRequestWithToken } from '../utils/api';
+import { useBusinessAccount } from './BusinessAccountContext';
 
 const ServiceContext = createContext();
 
 export const ServiceProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
+    const { business } = useBusinessAccount();
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const [services, setServices] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const addService = async (businessId, addServiceDto) => {
+    const addService = async (addServiceDto, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/services`;
 
         try {
@@ -25,13 +28,13 @@ export const ServiceProvider = ({ children }) => {
             showNotification('Udało się!', response.message, 'success');
             console.log('Service added successfully.');
 
-            await fetchBusinessServices(businessId);
+            await fetchServices(businessId);
         } catch (error) {
             showNotification('Nie udało się dodać usługę', error.message, 'error');
         }
     };
 
-    const fetchBusinessServices = async (businessId) => {
+    const fetchServices = async (businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/services`;
 
         try {
@@ -46,7 +49,7 @@ export const ServiceProvider = ({ children }) => {
         }
     };
 
-    const getBusinessService = async (businessId, serviceId) => {
+    const getBusinessService = async (serviceId, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/services/${serviceId}`;
 
         try {
@@ -61,7 +64,7 @@ export const ServiceProvider = ({ children }) => {
         }
     };
 
-    const updateBusinessService = async (businessId, serviceId, updateServiceDto) => {
+    const updateBusinessService = async (serviceId, updateServiceDto, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/services/${serviceId}`;
 
         try {
@@ -75,13 +78,13 @@ export const ServiceProvider = ({ children }) => {
             showNotification('Udało się!', response.message, 'success');
             console.log('Business service updated successfully.');
 
-            await fetchBusinessServices(businessId);
+            await fetchServices(businessId);
         } catch (error) {
             showNotification('Nie udało się zaktualizować usługę', error.message, 'error');
         }
     };
 
-    const deleteBusinessService = async (businessId, serviceId) => {
+    const deleteBusinessService = async (serviceId, businessId = business.id) => {
         const url = `${apiUrl}/businesses/${businessId}/services/${serviceId}`;
 
         try {
@@ -94,14 +97,14 @@ export const ServiceProvider = ({ children }) => {
             showNotification('Udało się!', response.message, 'success');
             console.log('Business service deleted successfully.');
 
-            await fetchBusinessServices(businessId);
+            await fetchServices(businessId);
         } catch (error) {
             showNotification('Nie udało się usunąnć usługę', error.message, 'error');
         }
     };
 
     return (
-        <ServiceContext.Provider value = {{ services, addService, fetchBusinessServices, getBusinessService, updateBusinessService, deleteBusinessService }}>
+        <ServiceContext.Provider value = {{ services, loading, addService, fetchServices, getBusinessService, updateBusinessService, deleteBusinessService }}>
             {children}
         </ServiceContext.Provider>
     );

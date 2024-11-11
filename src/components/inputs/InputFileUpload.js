@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, styled } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const VisuallyHiddenInput = styled('input')({
@@ -14,21 +15,23 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
   
-const InputFileUpload = ({ onChange }) => {
+const InputFileUpload = ({ onChange, variant='contained', loading }) => {
     return (
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
+      <LoadingButton
+        component='label'
+        variant={variant}
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
+        loading={loading}
+        loadingPosition='start'
+        sx={{ textTransform: 'none' }}
       >
         Prześlij plik
         <VisuallyHiddenInput
-          type="file"
+          type='file'
           onChange={(e) => onChange(e.target.files[0])}
         />
-      </Button>
+      </LoadingButton>
     );
 }
 
