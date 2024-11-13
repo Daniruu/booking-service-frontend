@@ -8,20 +8,29 @@ import WorkingHoursCard from '../WorkingHoursCard/WorkingHoursCard';
 import BusinessGalleryCard from '../BusinessGalleryCard/BusinessGalleryCard';
 import EmployeeCard from '../EmployeesCard/EmployeesCard';
 import ServicesCard from '../ServicesCard/ServicesCard';
+import BookingCalendar from '../BookingCalendar/BookingCalendar';
+import { useEmployee } from '../../../../context/EmployeeContext';
 
 const BusinessProfile = () => {
     const { business, fetchBusiness } = useBusinessAccount();
+    const { fetchBusinessEmployees } = useEmployee();
     const [selectedSection, setSelectedSection] = useState('businessInfo');
 
     useEffect(() => {
         fetchBusiness();
     }, []);
 
+    useEffect(() => {
+        if (business) {
+            fetchBusinessEmployees();
+        }
+    }, [business]);
+
     const renderContent = () => {
         switch (selectedSection) {
             case 'businessInfo':
                 return (
-                    <Stack spacing={2} sx={{ flex: 1 }}>
+                    <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
                         <Typography variant='h5' fontWeight={600}>Informacje o firmie</Typography>
                         <BusinessDetailsCard />
                         <WorkingHoursCard />
@@ -30,28 +39,27 @@ const BusinessProfile = () => {
                 );
             case 'employees':
                 return (
-                    <Stack spacing={2} sx={{ flex: 1}}>
+                    <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
                         <Typography variant='h5' fontWeight={600}>Pracownicy</Typography>
                         <EmployeeCard />
                     </Stack>
                 );
             case 'services':
                 return (
-                    <Stack spacing={2} sx={{ flex: 1}}>
+                    <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
                         <Typography variant='h5' fontWeight={600}>Usługi</Typography>
                         <ServicesCard />
                     </Stack>
                 );
             case 'calendar':
                 return (
-                    <Stack spacing={2} sx={{ flex: 1}}>
-                        <Typography variant='h5' fontWeight={600}>Kalendarz</Typography>
-                        **TO DO**
+                    <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
+                        <BookingCalendar />
                     </Stack>
                 );
             default:
                 return (
-                    <Stack spacing={2} sx={{ flex: 1 }}>
+                    <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
                         <Typography variant='h5' fontWeight={600}>Informacje o firmie</Typography>
                         <BusinessDetailsCard />
                         <WorkingHoursCard />
@@ -71,15 +79,15 @@ const BusinessProfile = () => {
     return (
         <Container sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Toolbar />
-            <Box sx={{ display: 'flex', flex: 1, p: 3 }}>
+            <Box sx={{ display: 'flex', flex: 1, p: 3, width: '100%' }}>
                 {/* Sidebar */}    
-                <Box sx={{ display: 'flex', flexDirection: 'column', width: 250, height: '100%', mr: 10 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', width: 250, height: '100%', mr: 5 }}>
                     <UserCard />
                     <BusinessSidebarNavigation selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
                 </Box>
 
                 {/* Main content */}
-                <Box component='main' sx={{ pt: 2, width: '100%' }}>
+                <Box component='main' sx={{ p: 1, width: '100%', overflowX: 'auto' }}>
                     {renderContent()}
                 </Box>
             </Box>

@@ -205,7 +205,7 @@ const AddBusinessForm = ({ onSubmit }) => {
         switch (step) {
             case 0:
                 return (
-                    <Stack spacing={2}>
+                    <Stack spacing={2} sx={{ maxHeight: 400, overflowY: 'auto', pt: 1 }}>
                         <TextField
                             label="Nazwa"
                             name="name"
@@ -265,7 +265,7 @@ const AddBusinessForm = ({ onSubmit }) => {
                 );
             case 1:
                 return (
-                    <Stack spacing={2}>
+                    <Stack spacing={2} sx={{ maxHeight: 400, overflowY: 'auto', pt: 1 }}>
                         <TextField
                             label='NIP'
                             name='nip'
@@ -370,7 +370,7 @@ const AddBusinessForm = ({ onSubmit }) => {
     };
 
     return (
-        <Paper sx={{ padding: 4, width: 800 }}>
+        <Paper sx={{ padding: 4, width: 800, maxHeight: 800 }}>
             <Typography variant='h5' mb={4}>
                 Rejestracja przedsiębiorstwa
             </Typography>

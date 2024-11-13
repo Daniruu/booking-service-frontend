@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
     const [user, setUser] = useState(null);
+    const [favoriteBusinesses, setFavoriteBusinesses] = useState(null);
     const [loading, setLoading] = useState(false);
     const isFetchingUser = useRef(false);
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
@@ -114,7 +115,7 @@ export const UserProvider = ({ children }) => {
         const url = `${apiUrl}/users/delete-avatar`;
 
         try {
-            console.log("Uploading user avatar...");
+            console.log('Uploading user avatar...');
             
             const response = await sendRequestWithToken(url, {
                 method: 'DELETE'
@@ -131,8 +132,25 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const fetchFavoriteBusinesses = async () => {
+        const url = `${apiUrl}/users/favorites`;
+
+        try {
+            console.log('Fetching favorite businesses...');
+            setLoading(true);
+
+            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+
+            setFavoriteBusinesses(data);
+        } catch (error) {
+            showNotification('Nie udało się pobrać dane', error.message, 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, loading, setUser, fetchUserData, getUserById, updateUser, uploadAvatar, deleteAvatar }}>
+        <UserContext.Provider value={{ user, loading, favoriteBusinesses, fetchFavoriteBusinesses, setUser, fetchUserData, getUserById, updateUser, uploadAvatar, deleteAvatar }}>
             {children}
         </UserContext.Provider>
     );

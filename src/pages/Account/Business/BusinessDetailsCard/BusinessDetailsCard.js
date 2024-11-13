@@ -213,10 +213,10 @@ const BusinessDetailsCard = () => {
                         <IconButton aria-label='close' onClick={() => handleCloseModal()} sx={{ position: 'absolute', right: 8, top: 8 }}>
                             <CloseIcon />
                         </IconButton>
-                        <Button sx={{ fontSize: 16 }} onClick={() => handleCloseModal()}>
+                        <Button sx={{ fontSize: 16, textTransform: 'none' }} onClick={() => handleCloseModal()}>
                             Anuluj
                         </Button>
-                        <Button sx={{ fontSize: 16 }} onClick={handleSubmit}>
+                        <Button sx={{ fontSize: 16, textTransform: 'none' }} onClick={handleSubmit}>
                             Zapisz
                         </Button>
                     </DialogActions>

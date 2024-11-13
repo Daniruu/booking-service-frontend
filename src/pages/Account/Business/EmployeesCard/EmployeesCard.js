@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
-import { useEmployee } from '../../../../context/EmployeeContext';
-import { useBusinessAccount } from '../../../../context/BusinessAccountContext';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EmployeesTable from '../EmployeesTable/EmployeesTable';
 import AddEmployeeDialog from '../AddEmployeeDialog/AddEmployeeDialog';
 
 const EmployeeCard = () => {
-    const { business } = useBusinessAccount();
-    const { fetchBusinessEmployees } = useEmployee();
     const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = useState(false);
-
-    useEffect(() => {
-        if (business) {
-            fetchBusinessEmployees(business.id);
-        }
-    }, [business]);
 
     const handleAddEmployeeDialogOpen = () => {
         setAddEmployeeDialogOpen(true);

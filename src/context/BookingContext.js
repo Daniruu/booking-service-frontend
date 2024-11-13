@@ -10,18 +10,40 @@ export const BookingProvider = ({ children }) => {
     const { showNotification } = useNotification();
     const { refreshAccessToken } = useAuth();
     const [userBookings, setUserBookings] = useState(null);
+    const [businessBookings, setBusinessBookings] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const fetchUserBookings = async () => {
         const url = `${apiUrl}/users/bookings`;
         
         try {
+            setLoading(true);
             console.log('Fetching user bookings...');
             const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
             
-            console.log("User bookings successfully fetched");
+            console.log('User bookings successfully fetched');
             setUserBookings(data);
         } catch (error) {
-            showNotification('Nie udało się pobrać dane rezerwacje', error.message, 'error');
+            showNotification('Nie udało się pobrać dane rezerwacji', error.message, 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchBusinessBookings = async (businessId) => {
+        const url = `${apiUrl}/businesses/${businessId}/bookings`;
+
+        try {
+            setLoading(true);
+            console.log('Fetching business bookings');
+            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+
+            console.log('Business bookings successfuly fetched');
+            setBusinessBookings(data);
+        } catch (error) {
+            showNotification('Nie udało się pobrać dane rezerwacji', error.message, 'error');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -125,7 +147,7 @@ export const BookingProvider = ({ children }) => {
     };
     
     return (
-        <BookingContext.Provider value={{ userBookings, fetchUserBookings, createBooking, fetchBookingDetails, updateBooking, cancelBooking, getAvailableTimeSlots }}>
+        <BookingContext.Provider value={{ userBookings, businessBookings, loading, fetchUserBookings, createBooking, fetchBookingDetails, updateBooking, cancelBooking, getAvailableTimeSlots, fetchBusinessBookings }}>
             {children}
         </BookingContext.Provider>
     );

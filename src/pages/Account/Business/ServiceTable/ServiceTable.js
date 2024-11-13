@@ -6,12 +6,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditServiceDialog from '../EditServiceDialog/EditServiceDialog';
 import DeleteServiceDialog from '../DeleteServiceDialog/DeleteServiceDialog';
-import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import ServiceTableRow from '../ServiceTableRow/ServiceTableRow';
 
 const ServiceTable = () => {
-    const { services, fetchServices, updateGroupOrder, updateServiceOrder } = useService();
+    const { services, fetchServices } = useService();
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedService, setSelectedService] = useState(null);
     const [editServiceDialogOpen, setEditServiceDialogOpen] = useState(false);

@@ -5,6 +5,7 @@ import UserSidebarNavigation from '../UserSidebarNavigation/UserSidebarNavigatio
 import UserCard from '../../UserCard/UserCard';
 import UserDataForm from '../UserDataForm/UserDataForm';
 import UserDataCard from '../UserDataCard/UserDataCard';
+import FavoritesList from '../FavoritesList/FavoritesList';
 
 const UserProfile = () => {
     const [selectedSection, setSelectedSection] = useState('bookings');
@@ -30,7 +31,7 @@ const UserProfile = () => {
                 return (
                     <Stack spacing={2} sx={{ flex: 1}}>
                         <Typography variant='h5' fontWeight={600}>Ulubione</Typography>
-                        **TO DO**
+                        <FavoritesList />
                     </Stack>
                 );
             case 'reviews':

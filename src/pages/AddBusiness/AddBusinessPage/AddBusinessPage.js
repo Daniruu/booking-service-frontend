@@ -1,8 +1,7 @@
 import React from 'react';
-import WideContainer from '../../../components/layout/WideContainer/WideContainer';
-import { Box } from '@mui/material';
+import { Box, Container, Toolbar } from '@mui/material';
 import AddBusinessForm from '../AddBusinessForm/AddBusinessForm';
-import { useBusiness, useBusinessAccount } from '../../../context/BusinessAccountContext';
+import { useBusinessAccount } from '../../../context/BusinessAccountContext';
 import { useNavigate } from 'react-router-dom';
 
 const AddBusinessPage = () => {
@@ -15,11 +14,12 @@ const AddBusinessPage = () => {
     };
 
     return (
-        <WideContainer sx={{ height: 'calc(100vh - 64px)' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        <Container sx={{ height: '100vh' }}>
+            <Toolbar />
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'calc(100% - 64px)' }}>
                 <AddBusinessForm onSubmit={handleRegisterBusiness}/>
             </Box>
-        </WideContainer>
+        </Container>
     );
 }
 

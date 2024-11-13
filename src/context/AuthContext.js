@@ -66,9 +66,8 @@ export const AuthProvider = ({ children }) => {
     const url = `${apiUrl}/auth/refresh`;
 
     if (!refreshToken) {
-      showNotification('Sesja wygasła','Proszę zalogować się ponownie','error');
+      showNotification('Sesja wygasła','Proszę zalogować się ponownie','info');
       logout();
-      throw new Error('No refresh token, logout...');
     }
     
     try {

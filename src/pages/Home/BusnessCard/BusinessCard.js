@@ -5,7 +5,7 @@ import { Card, CardContent, CardMedia, Box, Typography, CardActionArea, List, Li
 const BusinessCard = ({ business }) => {
     const navigate = useNavigate();
 
-    const servicesToDisplay = business?.featuredServices.slice(0, 3);
+    const servicesToDisplay = business?.featuredServices?.slice(0, 3);
 
     const handleCardClick = () => {
         navigate(`/business/${business.id}`);

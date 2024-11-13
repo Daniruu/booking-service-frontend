@@ -6,7 +6,7 @@ import { validateNumber, validatePrice, validateTextField } from '../../../../ut
 import CloseIcon from '@mui/icons-material/Close';
 
 const AddServiceDialog = ({ open, onClose }) => {
-    const { employees, fetchBusinessEmployees } = useEmployee();
+    const { employees } = useEmployee();
     const { addService } = useService();
     const [serviceData, setServiceData] = useState({
         name: '',
@@ -25,10 +25,6 @@ const AddServiceDialog = ({ open, onClose }) => {
         group: '',
         employeeId: ''
     });
-
-    useEffect(() => {
-        fetchBusinessEmployees();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

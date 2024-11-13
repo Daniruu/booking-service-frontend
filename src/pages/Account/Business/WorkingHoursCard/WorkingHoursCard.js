@@ -163,7 +163,7 @@ const WorkingHoursCard = () => {
                             </List>
                             { isEdited && (
                                 <Box sx={{ display: 'flex', justifyContent: 'end', mt: 1 }}>
-                                    <Button variant='contained' onClick={handleSave}>Zapisz zmiany</Button>
+                                    <Button variant='contained' onClick={handleSave} sx={{ textTransform: 'none' }}>Zapisz zmiany</Button>
                                 </Box>
                             )}
                         </Stack>

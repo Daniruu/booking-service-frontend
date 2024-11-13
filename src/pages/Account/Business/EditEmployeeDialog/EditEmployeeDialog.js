@@ -8,8 +8,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const EditEmployeeDialog = ({ open, onClose, employee }) => {
     const { updateEmployee, uploadEmployeeAvatar, loading } = useEmployee();
-    const [formData, setFormData] = useState(new FormData());
-    const [avatarPreview, setAvatarPreview] = useState('');
     const [employeeData, setEmployeeData] = useState({
         name: '',
         position: '',
@@ -19,7 +17,6 @@ const EditEmployeeDialog = ({ open, onClose, employee }) => {
 
     useEffect(() => {
         if (employee) {
-            setAvatarPreview(employee.avatarUrl);
             setEmployeeData({
                 name: employee.name || '',
                 position: employee.position || '',
@@ -38,9 +35,10 @@ const EditEmployeeDialog = ({ open, onClose, employee }) => {
 
     const handleAvatarChange = (file) => {
         if (file) {
+            const formData = new FormData();
             formData.append('file', file);
-            const previewUrl = URL.createObjectURL(file);
-            setAvatarPreview(previewUrl);
+            
+            uploadEmployeeAvatar(employee.id, formData);
         }
     };
 
@@ -89,13 +87,11 @@ const EditEmployeeDialog = ({ open, onClose, employee }) => {
             phone: unformatPhoneNumber(employeeData.phone)
         };
 
-        uploadEmployeeAvatar(employee.id, formData);
         updateEmployee(employee.id, dataToSubmit);
         onClose();
     };
 
     const handleCancel = () => {
-        setAvatarPreview(employee.avatarUrl);
         setEmployeeData({
             name: employee.name || '',
             position: employee.position || '',
@@ -113,7 +109,7 @@ const EditEmployeeDialog = ({ open, onClose, employee }) => {
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Avatar
                             alt={employee?.name}
-                            src={avatarPreview}
+                            src={employee?.avatarUrl}
                             sx={{ width: 120, height: 120, mr: 2 }}
                         />
                         <InputFileUpload onChange={handleAvatarChange} loading={loading} variant='text' />

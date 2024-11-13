@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useBusiness } from '../../../context/BusinessContext';
 import { useUser } from '../../../context/UserContext';
-import { Box, Grid2, Skeleton, Typography, Card, CardContent, Divider, Breadcrumbs, Link, Toolbar, List, ListItem, Stack, Container } from '@mui/material';
+import { Box, Grid2, Skeleton, Typography, Card, CardContent, Divider, Breadcrumbs, Link, Toolbar, List, ListItem, Stack, Container, IconButton } from '@mui/material';
 import { formatPhoneNumber } from '../../../utils/formatPhone';
 import WideContainer from '../../../components/layout/WideContainer/WideContainer';
 import ImageSlider from '../../../components/content/ImageSlider/ImageSlider';
@@ -13,13 +13,15 @@ import BookingModal from '../../../components/modals/BookingModal/BookingModal';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const BusinessPage = () => {
     const { businessId } = useParams();
     const [searchParams] = useSearchParams();
     const serviceIdFromURL = searchParams.get('serviceId');
     const { user } = useUser();
-    const { businessDetails, fetchBusinessDetails, loading } = useBusiness();
+    const { businessDetails, fetchBusinessDetails, loading, isFavorite, checkFavoriteStatus, toggleFavorite } = useBusiness();
     const [openModal, setOpenModal] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
@@ -27,6 +29,7 @@ const BusinessPage = () => {
 
     useEffect(() => {
         fetchBusinessDetails(businessId);
+        checkFavoriteStatus(businessId);
     }, [businessId]);
 
     useEffect(() => {
@@ -80,22 +83,33 @@ const BusinessPage = () => {
                         <Skeleton animation='wave' variant='rounded' height={300} width='100%' />
                     )}
                     
-                    <Box mt={2} mb={4}>
-                        <Typography variant='h4' gutterBottom>
-                            {!loading ? businessDetails?.name : <Skeleton animation='wave' variant='rounded' height={32} width={360} />}
-                        </Typography>
-                        
-                        <Typography variant='body2' color='text.secondary'>
-                            {!loading ? (
-                                <>
-                                    {businessDetails?.address.street} {businessDetails?.address.buildingNumber}
-                                    {businessDetails?.address.roomNumber ? `/${businessDetails?.address.roomNumber},` : ', '}
-                                    {businessDetails?.address.postalCode} {businessDetails?.address.city}
-                                </>
-                            ) : (
-                                <Skeleton animation='wave' variant='rounded' height={16} width={320} />
-                            )} 
-                        </Typography>
+                    <Box mt={2} mb={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'start' }}>
+                        <Box>
+                            <Typography variant='h4' gutterBottom>
+                                {!loading ? businessDetails?.name : <Skeleton animation='wave' variant='rounded' height={32} width={360} />}
+                            </Typography>
+                            
+                            <Typography variant='body2' color='text.secondary'>
+                                {!loading ? (
+                                    <>
+                                        {businessDetails?.address.street} {businessDetails?.address.buildingNumber}
+                                        {businessDetails?.address.roomNumber ? `/${businessDetails?.address.roomNumber},` : ', '}
+                                        {businessDetails?.address.postalCode} {businessDetails?.address.city}
+                                    </>
+                                ) : (
+                                    <Skeleton animation='wave' variant='rounded' height={16} width={320} />
+                                )} 
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <IconButton onClick={() => toggleFavorite(businessId)} size='large'>
+                                {isFavorite ? (
+                                    <FavoriteIcon fontSize='inherit' />
+                                ) : (
+                                    <FavoriteBorderIcon fontSize='inherit' />
+                                )}
+                            </IconButton>
+                        </Box>
                     </Box>
                     {!loading ? (
                         <ServicesByGroup services={businessDetails?.services} onServiceClick={handleOpenModal} />
@@ -117,7 +131,7 @@ const BusinessPage = () => {
                 <Grid2 item size={{ xs: 12, md: 4 }}>
                     <Box sx={{ position: 'sticky', top: '80px' }}>
                         <Card sx={{ mb: 4 }} elevation={2}>
-                            <CardContent sx={{ paddingTop: '24px' }}>     
+                            <CardContent sx={{ paddingTop: '24px' }}>
                                     {!loading ? (
                                         <>
                                         <Box px={0.5}>
