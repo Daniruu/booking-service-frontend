@@ -12,8 +12,8 @@ const ServicesByGroup = ({ services, onServiceClick }) => {
     }, {});
 
     return (
-        <Box mt={2}>
-            <Typography variant='h5' gutterBottom>Usługi</Typography>
+        <Box>
+            <Typography variant='h5' fontWeight={500} gutterBottom>Usługi</Typography>
 
             {featuredServices.length > 0 && (
                 <Box mb={2}>

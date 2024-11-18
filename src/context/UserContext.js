@@ -2,7 +2,6 @@ import React, { createContext, useState, useContext, useEffect, useRef } from 'r
 import { useAuth } from './AuthContext';
 import { sendRequest, sendRequestWithToken } from '../utils/api';
 import { useNotification } from './NotificationContext';
-import { handleError } from '../utils/errorHandler';
 
 const UserContext = createContext();
 
@@ -12,18 +11,15 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [favoriteBusinesses, setFavoriteBusinesses] = useState(null);
     const [loading, setLoading] = useState(false);
-    const isFetchingUser = useRef(false);
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const token = localStorage.getItem('accessToken');
 
     const fetchUserData = async () => {
-        if (isFetchingUser.current) return;
         const url = `${apiUrl}/users`;
 
         console.log('Fetching user data...');
         try {
             setLoading(true);
-            isFetchingUser.current = true;
 
             const userData = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
 
@@ -33,12 +29,11 @@ export const UserProvider = ({ children }) => {
             showNotification('Nie udało się załadować dane użytkownika', error.message, 'error');
         } finally {
             setLoading(false);
-            isFetchingUser.current = false;
         }
     };
 
     useEffect(() => {
-        if (token && !isFetchingUser.current) {
+        if (token) {
             fetchUserData();
         } else {
             setUser(null);

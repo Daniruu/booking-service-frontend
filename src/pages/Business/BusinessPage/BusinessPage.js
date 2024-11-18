@@ -4,7 +4,6 @@ import { useBusiness } from '../../../context/BusinessContext';
 import { useUser } from '../../../context/UserContext';
 import { Box, Grid2, Skeleton, Typography, Card, CardContent, Divider, Breadcrumbs, Link, Toolbar, List, ListItem, Stack, Container, IconButton } from '@mui/material';
 import { formatPhoneNumber } from '../../../utils/formatPhone';
-import WideContainer from '../../../components/layout/WideContainer/WideContainer';
 import ImageSlider from '../../../components/content/ImageSlider/ImageSlider';
 import ServicesByGroup from '../ServicesByGroup/ServicesByGroup';
 import WorkingHours from '../../../components/content/WorkingHours/WorkingHours';
@@ -15,13 +14,15 @@ import EmailIcon from '@mui/icons-material/Email';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ReviewList from '../ReviewList/ReviewList';
+import AddReviewForm from '../AddReviewForm/AddReviewForm';
 
 const BusinessPage = () => {
     const { businessId } = useParams();
     const [searchParams] = useSearchParams();
     const serviceIdFromURL = searchParams.get('serviceId');
     const { user } = useUser();
-    const { businessDetails, fetchBusinessDetails, loading, isFavorite, checkFavoriteStatus, toggleFavorite } = useBusiness();
+    const { businessDetails, fetchBusinessDetails, loading, isFavorite, checkFavoriteStatus, toggleFavorite, fetchBusinessReviews, hasReviewed, checkReviewStatus } = useBusiness();
     const [openModal, setOpenModal] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
@@ -29,7 +30,11 @@ const BusinessPage = () => {
 
     useEffect(() => {
         fetchBusinessDetails(businessId);
-        checkFavoriteStatus(businessId);
+        fetchBusinessReviews(businessId);
+        if (user) {
+            checkFavoriteStatus(businessId);
+            checkReviewStatus(businessId);
+        }
     }, [businessId]);
 
     useEffect(() => {
@@ -62,7 +67,7 @@ const BusinessPage = () => {
     };
 
     if (!businessDetails && !loading) {
-        return <WideContainer sx={{ minHeight: '100vh' }}/>
+        return <Container sx={{ minHeight: '100vh' }}/>
     };
 
     return (
@@ -77,55 +82,64 @@ const BusinessPage = () => {
 
             <Grid2 container spacing={4} sx={{ padding: 4 }}>
                 <Grid2 item size={{ xs: 12, md: 8 }}>
-                    {!loading ? (
-                        <ImageSlider images={businessDetails?.images} />
-                    ) : (
-                        <Skeleton animation='wave' variant='rounded' height={300} width='100%' />
-                    )}
-                    
-                    <Box mt={2} mb={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'start' }}>
-                        <Box>
-                            <Typography variant='h4' gutterBottom>
-                                {!loading ? businessDetails?.name : <Skeleton animation='wave' variant='rounded' height={32} width={360} />}
-                            </Typography>
-                            
-                            <Typography variant='body2' color='text.secondary'>
-                                {!loading ? (
-                                    <>
-                                        {businessDetails?.address.street} {businessDetails?.address.buildingNumber}
-                                        {businessDetails?.address.roomNumber ? `/${businessDetails?.address.roomNumber},` : ', '}
-                                        {businessDetails?.address.postalCode} {businessDetails?.address.city}
-                                    </>
-                                ) : (
-                                    <Skeleton animation='wave' variant='rounded' height={16} width={320} />
-                                )} 
-                            </Typography>
+                    <Stack spacing={4}>
+                        {!loading ? (
+                            <ImageSlider images={businessDetails?.images} />
+                        ) : (
+                            <Skeleton animation='wave' variant='rounded' height={300} width='100%' />
+                        )}
+                        
+                        <Box mt={2} mb={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'start' }}>
+                            <Box>
+                                <Typography variant='h4' gutterBottom>
+                                    {!loading ? businessDetails?.name : <Skeleton animation='wave' variant='rounded' height={32} width={360} />}
+                                </Typography>
+                                
+                                <Typography variant='body2' color='text.secondary'>
+                                    {!loading ? (
+                                        <>
+                                            {businessDetails?.address.street} {businessDetails?.address.buildingNumber}
+                                            {businessDetails?.address.roomNumber ? `/${businessDetails?.address.roomNumber},` : ', '}
+                                            {businessDetails?.address.postalCode} {businessDetails?.address.city}
+                                        </>
+                                    ) : (
+                                        <Skeleton animation='wave' variant='rounded' height={16} width={320} />
+                                    )} 
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <IconButton onClick={() => toggleFavorite(businessId)} size='large'>
+                                    {isFavorite ? (
+                                        <FavoriteIcon fontSize='inherit' />
+                                    ) : (
+                                        <FavoriteBorderIcon fontSize='inherit' />
+                                    )}
+                                </IconButton>
+                            </Box>
                         </Box>
-                        <Box>
-                            <IconButton onClick={() => toggleFavorite(businessId)} size='large'>
-                                {isFavorite ? (
-                                    <FavoriteIcon fontSize='inherit' />
-                                ) : (
-                                    <FavoriteBorderIcon fontSize='inherit' />
-                                )}
-                            </IconButton>
-                        </Box>
-                    </Box>
-                    {!loading ? (
-                        <ServicesByGroup services={businessDetails?.services} onServiceClick={handleOpenModal} />
-                    ) : (
-                        <List sx={{ display: 'flex', flexDirection: 'column', gap: 2}}>
-                            <Skeleton animation='wave' variant='rounded' height={32} width={160} />
-                            <Divider />
-                            {Array.from(new Array(8)).map((_, index) => (
-                                <ListItem key={index} sx={{ display: 'block', p: 0, mb: 1 }}>
-                                    <Skeleton animation='wave' variant='rounded' height={18} width={120} sx={{ mb: 2 }}/>
-                                    <Skeleton animation='wave' variant='rounded' height={36} width='100%' />
-                                </ListItem>
-                            ))}
-                        </List>
-                    )}
-                    
+                        {!loading ? (
+                            <ServicesByGroup services={businessDetails?.services} onServiceClick={handleOpenModal} />
+                        ) : (
+                            <List sx={{ display: 'flex', flexDirection: 'column', gap: 2}}>
+                                <Skeleton animation='wave' variant='rounded' height={32} width={160} />
+                                <Divider />
+                                {Array.from(new Array(8)).map((_, index) => (
+                                    <ListItem key={index} sx={{ display: 'block', p: 0, mb: 1 }}>
+                                        <Skeleton animation='wave' variant='rounded' height={18} width={120} sx={{ mb: 2 }}/>
+                                        <Skeleton animation='wave' variant='rounded' height={36} width='100%' />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        )}
+                        <ReviewList />
+                        {user && (
+                            hasReviewed ? (
+                                <Typography>**TO DO Edit review **</Typography>
+                            ) : (
+                                <AddReviewForm businessId={businessId} />
+                            )
+                        )}
+                    </Stack>
                 </Grid2>
 
                 <Grid2 item size={{ xs: 12, md: 4 }}>

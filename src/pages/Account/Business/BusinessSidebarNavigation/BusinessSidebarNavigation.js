@@ -11,7 +11,7 @@ const BusinessSidebarNavigation = ({ selectedSection, setSelectedSection }) => {
         <Stack spacing={1} mt={2}>
             <Divider />
             <Typography variant='body2' sx={{ color: 'text.secondary', textTransform: 'uppercase', fontSize: 14, fontWeight: '500', lineHeight: '1.2rem', px: 1, pt: 1 }}>
-                Akcje
+                Menu
             </Typography>
             <Button 
                 size='large'

@@ -45,6 +45,11 @@ const BookingCalendar = () => {
         );
     };
 
+    const occupitedIntervals = employees.reduce((acc, employee) => {
+        acc[employee.id] = new Set();
+        return acc;
+    }, {});
+
     if (loading) {
         return(
             <Typography>Loading...</Typography>
@@ -56,46 +61,66 @@ const BookingCalendar = () => {
             <BookingCalendarDatePicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
             <Paper sx={{ width: '100%', bgcolor: 'transparent' }} elevation={0}>
-                <TableContainer sx={{ maxHeight: 'calc(100vh - 180px)', overflowY: 'auto' }}>
-                    <Table stickyHeader size='small' >
+                <TableContainer sx={{ maxHeight: 'calc(100vh - 180px)', overflowY: 'auto', px: 1 }}>
+                    <Table stickyHeader size="small" sx={{ tableLayout: 'fixed' }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell 
-                                    sx={{ 
+                                <TableCell
+                                    sx={{
                                         position: 'sticky',
                                         left: 0,
-                                        border: 'none', 
-                                        px: 3, 
+                                        border: 'none',
                                         bgcolor: 'var(--background-color)',
-                                        px: 1
+                                        width: 40,
                                     }}
                                 ></TableCell>
                                 {employees?.map((employee) => (
-                                    <TableCell key={employee.id} sx={{ minWidth: 240, border: 'none', bgcolor: 'var(--background-color)' }}>
-                                        <Stack direction='row' alignItems='start' spacing={1}>
+                                    <TableCell
+                                        key={employee.id}
+                                        sx={{
+                                            border: 'none',
+                                            bgcolor: 'var(--background-color)',
+                                            width: `calc((100% - 36px) / ${employees.length})`, // Динамическая ширина
+                                            textOverflow: 'ellipsis',
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    >
+                                        <Stack direction="row" alignItems="start" spacing={1}>
                                             <Avatar alt={employee.name} src={employee.avatarUrl} />
                                             <Box>
-                                                <Typography variant='body1' fontWeight={500}>{employee.name}</Typography>
-                                                <Typography variant='body2' color='#bbb'>{employee.position}</Typography>
+                                                <Typography
+                                                    variant="body1"
+                                                    fontWeight={500}
+                                                    sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
+                                                >
+                                                    {employee.name}
+                                                </Typography>
+                                                <Typography
+                                                    variant="body2"
+                                                    color="#bbb"
+                                                    sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
+                                                >
+                                                    {employee.position}
+                                                </Typography>
                                             </Box>
                                         </Stack>
                                     </TableCell>
                                 ))}
                             </TableRow>
-                            
                         </TableHead>
-                        <Box sx={{ p: 1 }}/>
+                        <Box py={2} />
                         <TableBody>
                             {timeIntervals.map((time, index) => (
                                 <TableRow key={index}>
                                     <TableCell
-                                        sx={{ 
+                                        sx={{
                                             position: 'sticky',
                                             left: 0,
                                             zIndex: 1,
                                             border: 'none',
                                             bgcolor: 'var(--background-color)',
-                                            px: 1
+                                            width: 40,
                                         }}
                                     >
                                         <Typography
@@ -103,54 +128,64 @@ const BookingCalendar = () => {
                                                 position: 'absolute',
                                                 top: -10,
                                                 right: 5,
-                                                color: 'text.secondary', 
+                                                color: 'text.secondary',
                                                 fontSize: 12,
                                                 display: time.isHourStart ? 'block' : 'none',
-                                            }}>
-                                                {time.displayTime}
+                                            }}
+                                        >
+                                            {time.displayTime}
                                         </Typography>
                                     </TableCell>
                                     {employees?.map((employee) => {
+                                        if (occupitedIntervals[employee.id].has(time.time.unix())) {
+                                            return null;
+                                        }
+
                                         const booking = getBookingForDateTimeAndEmployee(time.time, employee.id);
+
                                         if (booking) {
                                             const rowSpan = Math.ceil(booking.serviceDuration / 15);
 
+                                            for (let i = 0; i < rowSpan; i++) {
+                                                occupitedIntervals[employee.id].add(
+                                                    time.time.add(i * 15, 'minute').unix()
+                                                );
+                                            }
+
                                             return (
-                                                <TableCell 
-                                                    key={employee.id} 
+                                                <TableCell
+                                                    key={employee.id}
                                                     rowSpan={rowSpan}
-                                                    sx={{ 
-                                                        borderTop: time.isHourStart ? '1px solid rgba(224, 224, 224, 1)' : 'none', 
+                                                    sx={{
+                                                        borderTop: time.isHourStart ? '1px solid rgba(224, 224, 224, 1)' : 'none',
                                                         borderBottom: 'none',
                                                         verticalAlign: 'top',
                                                         p: 0,
                                                         py: '4px',
-                                                        height: rowSpan * 16
+                                                        height: rowSpan * 15,
                                                     }}
                                                 >
-                                                    {booking && (
-                                                        <BookingCard booking={booking} />
-                                                    )}
+                                                    {booking && <BookingCard booking={booking} />}
                                                 </TableCell>
                                             );
                                         }
-                                        
+
                                         return (
-                                            <TableCell 
-                                                key={employee.id} 
-                                                sx={{ 
-                                                    borderTop: time.isHourStart ? '1px solid rgba(224, 224, 224, 1)' : 'none', 
-                                                    height: 16,
-                                                    borderBottom: 'none'
-                                                }} 
+                                            <TableCell
+                                                key={employee.id}
+                                                sx={{
+                                                    borderTop: time.isHourStart ? '1px solid rgba(224, 224, 224, 1)' : 'none',
+                                                    height: 15,
+                                                    borderBottom: 'none',
+                                                }}
                                             />
                                         );
                                     })}
                                 </TableRow>
                             ))}
                         </TableBody>
-
                     </Table>
+
                 </TableContainer>
             </Paper>
         </Stack>

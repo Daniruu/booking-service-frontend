@@ -16,7 +16,7 @@ const FavoritesList = () => {
 
     return (
         <Box>
-            {favoriteBusinesses.length > 0 ? (
+            {favoriteBusinesses?.length > 0 ? (
                 <Grid2 container spacing={3}>
                     {favoriteBusinesses?.map((business) => (
                         <BusinessFavoriteCard key={business.id} business={business} />

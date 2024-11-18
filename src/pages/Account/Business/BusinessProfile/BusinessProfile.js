@@ -31,7 +31,6 @@ const BusinessProfile = () => {
             case 'businessInfo':
                 return (
                     <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
-                        <Typography variant='h5' fontWeight={600}>Informacje o firmie</Typography>
                         <BusinessDetailsCard />
                         <WorkingHoursCard />
                         <BusinessGalleryCard />
@@ -40,14 +39,12 @@ const BusinessProfile = () => {
             case 'employees':
                 return (
                     <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
-                        <Typography variant='h5' fontWeight={600}>Pracownicy</Typography>
                         <EmployeeCard />
                     </Stack>
                 );
             case 'services':
                 return (
                     <Stack spacing={2} sx={{ flex: 1, width: '100%' }}>
-                        <Typography variant='h5' fontWeight={600}>Usługi</Typography>
                         <ServicesCard />
                     </Stack>
                 );

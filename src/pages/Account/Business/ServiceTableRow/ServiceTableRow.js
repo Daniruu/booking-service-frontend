@@ -15,8 +15,8 @@ const ServiceTableRow = ({ service, onMenuClick }) => {
                     variant='outlined'
                 />
             </TableCell>
-            <TableCell align='right'>{service.duration} min</TableCell>
-            <TableCell align='right'>{service.price} zł</TableCell>
+            <TableCell align='right' sx={{ textWrap: 'nowrap' }}>{service.duration} min</TableCell>
+            <TableCell align='right' sx={{ textWrap: 'nowrap' }}>{service.price} zł</TableCell>
             <TableCell align='right'>
                 <IconButton onClick={(e) => onMenuClick(e, service)}>
                     <MoreVertIcon />

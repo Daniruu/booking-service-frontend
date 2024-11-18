@@ -10,21 +10,20 @@ export const BusinessAccountProvider = ({ children }) => {
     const { refreshAccessToken } = useAuth();
     const { showNotification } = useNotification();
     const { user, setUser } = useUser();
+
     const [business, setBusiness] = useState(null);
     const [images, setImages] = useState(null);
     const [workingHours, setWorkingHours] = useState(null);
     const [loading, setLoading] = useState(false);
-    const isFetchingBusiness = useRef(false);
+    
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
     const fetchBusiness = async () => {
-        if (isFetchingBusiness.current) return;
         const url = `${apiUrl}/businesses`;
 
         try {
             console.log('Fetcging business data...');
             setLoading(true);
-            isFetchingBusiness.current = true;
 
             const businessData = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
 
@@ -34,7 +33,6 @@ export const BusinessAccountProvider = ({ children }) => {
             showNotification('Nie udało się załadować dane biznesu', error.message, 'error' );
         } finally {
             setLoading(false);
-            isFetchingBusiness.current = false;
         }
     };
 
@@ -79,6 +77,21 @@ export const BusinessAccountProvider = ({ children }) => {
         }
     };
 
+    const fetchBusinessWorkingHours = async (businessId) => {
+        const url = `${apiUrl}/businesses/${businessId}/working-hours`;
+
+        try {
+            console.log('Fetching business working hurs');
+
+            const workingHoursData = await sendRequest(url);
+
+            console.log('Business working hours successfully fetched.');
+            setWorkingHours(workingHoursData);
+        } catch (error) {
+            showNotification('Nie udało się saładować godziny pracy', error.message, 'error');
+        }
+    };
+
     const updateBusinessWorkingHours = async (businessId, updateWorkingHoursDto) => {
         const url = `${apiUrl}/businesses/${businessId}/working-hours`;
 
@@ -94,21 +107,6 @@ export const BusinessAccountProvider = ({ children }) => {
             console.log('Business working hours updated successfully.');
         } catch (error) {
             showNotification('Nie udało się zaktualizować godziny pracy', error.message, 'error');
-        }
-    };
-
-    const fetchBusinessWorkingHours = async (businessId) => {
-        const url = `${apiUrl}/businesses/${businessId}/working-hours`;
-
-        try {
-            console.log('Fetching business working hurs');
-
-            const workingHoursData = await sendRequest(url);
-
-            console.log('Business working hours successfully fetched.');
-            setWorkingHours(workingHoursData);
-        } catch (error) {
-            showNotification('Nie udało się saładować godziny pracy', error.message, 'error');
         }
     };
 
