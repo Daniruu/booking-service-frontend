@@ -44,7 +44,7 @@ const BookingDetailsDialog = ({ open, onClose, booking }) => {
     }
 
     const statusColor = {
-        completed: 'default',
+        completed: 'success',
         pending: 'info',
         cancelled: 'error'
     };
@@ -57,7 +57,7 @@ const BookingDetailsDialog = ({ open, onClose, booking }) => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box p={1}>
                         <Typography variant='body1' color='text.secondary'>Szczegóły rezerwacji</Typography>
-                        <Typography variant='h6'>{formatFullDate(bookingDetails.dateTime)} - {formatTime(bookingDetails.dateTime)}</Typography>
+                        <Typography variant='h6'>{formatFullDate(bookingDetails.startTime)} - {formatTime(bookingDetails.startTime)}</Typography>
                     </Box>
                     <Chip variant='outlined' label={statusText[booking.status]} color={statusColor[booking.status]} sx={{ marginLeft: 'auto' }} />
                 </Box>
@@ -70,8 +70,8 @@ const BookingDetailsDialog = ({ open, onClose, booking }) => {
                             <Typography variant='body1' fontWeight={500} sx={{ textWrap: 'nowrap' }}>{bookingDetails.price} zł</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4 }}>
-                            <Typography variant='body1' noWrap>{bookingDetails.serviceDescription}</Typography>
-                            <Typography variant='body1' sx={{ textWrap: 'nowrap' }}>{bookingDetails.duration} min</Typography>
+                            <Typography variant='body2'>{bookingDetails.serviceDescription}</Typography>
+                            <Typography variant='body2' sx={{ textWrap: 'nowrap' }}>{bookingDetails.duration} min</Typography>
                         </Box>
                     </Box>
 

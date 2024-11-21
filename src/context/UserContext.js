@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
     const { showNotification } = useNotification();
     const [user, setUser] = useState(null);
     const [favoriteBusinesses, setFavoriteBusinesses] = useState(null);
+    const [reviews, setReviews] = useState(null);
     const [loading, setLoading] = useState(false);
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const token = localStorage.getItem('accessToken');
@@ -144,8 +145,25 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const fetchUserReviews = async () => {
+        const url = `${apiUrl}/users/reviews`;
+
+        try {
+            setLoading(true);
+            console.log('Fetching user reviews...');
+            const data = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+
+            setReviews(data);
+            console.log('User reviwes fetched successfully!');
+        } catch (error) {
+            showNotification('Nie udało się pobrać dane o opiniach', error.message, 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, loading, favoriteBusinesses, fetchFavoriteBusinesses, setUser, fetchUserData, getUserById, updateUser, uploadAvatar, deleteAvatar }}>
+        <UserContext.Provider value={{ user, loading, favoriteBusinesses, fetchFavoriteBusinesses, setUser, fetchUserData, getUserById, updateUser, uploadAvatar, deleteAvatar, reviews, fetchUserReviews }}>
             {children}
         </UserContext.Provider>
     );

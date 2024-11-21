@@ -4,8 +4,8 @@ import { fomratDate, formatDate, formatDateTime, formatTime } from '../../../../
 import dayjs from 'dayjs';
 
 const BookingCard = ({ booking }) => {
-    const startTime = dayjs(booking.dateTime);
-    const endTime = startTime.add(booking.serviceDuration, 'minute');
+    const startTime = dayjs(booking.startTime);
+    const endTime = dayjs(booking.endTime);
     const [direction, setDirtection] = useState('column');
     const cardRef = useRef(null);
 
@@ -31,7 +31,7 @@ const BookingCard = ({ booking }) => {
     return (
         <Card ref={cardRef} elevation={3} sx={{ height: '100%', bgcolor: '#039be5', p: 0.5 }}>
             <Stack direction={direction} spacing={0.5}>
-                <Typography variant='body1' noWrap sx={{ fontSize: 14, fontWeight: '600', color: '#FFF' }}>
+                <Typography variant='body1' sx={{ fontSize: 14, fontWeight: '600', color: '#FFF', whiteSpace: 'nowrap', overflow: 'visible' }}>
                     {startTime.format("HH:mm")} - {endTime.format("HH:mm")}
                 </Typography>
                 <Typography variant='body1' noWrap sx={{ fontSize: 14, color: '#FFF' }}>

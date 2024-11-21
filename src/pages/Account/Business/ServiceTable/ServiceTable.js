@@ -84,11 +84,11 @@ const ServiceTable = () => {
                                 <TableContainer>
                                     <Table size='small'>
                                         <TableHead>
-                                            <TableCell sx={{ color: 'text.secondary', pl: 1 }}>Nazwa usługi</TableCell>
-                                            <TableCell sx={{ color: 'text.secondary' }}>Opis</TableCell>
-                                            <TableCell sx={{ color: 'text.secondary' }}>Pracowik</TableCell>
-                                            <TableCell sx={{ color: 'text.secondary' }} align='right'>Czas trwania</TableCell>
-                                            <TableCell sx={{ color: 'text.secondary' }} align='right'>Cena</TableCell>
+                                            <TableCell sx={{ color: 'text.secondary', textWrap: 'nowrap', pl: 1 }}>Nazwa usługi</TableCell>
+                                            <TableCell sx={{ color: 'text.secondary', textWrap: 'nowrap' }}>Opis</TableCell>
+                                            <TableCell sx={{ color: 'text.secondary', textWrap: 'nowrap' }}>Pracowik</TableCell>
+                                            <TableCell sx={{ color: 'text.secondary', textWrap: 'nowrap' }} align='right'>Czas trwania</TableCell>
+                                            <TableCell sx={{ color: 'text.secondary', textWrap: 'nowrap' }} align='right'>Cena</TableCell>
                                             <TableCell></TableCell>
                                         </TableHead>
                                         <TableBody>

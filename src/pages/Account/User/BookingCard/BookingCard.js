@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BookingDetailsDialog from '../BookingDetailsDialog/BookingDetailsDialog';
+import dayjs from 'dayjs';
 
 const BookingCard = ({ booking }) => {
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -25,7 +26,7 @@ const BookingCard = ({ booking }) => {
     }
 
     const statusColor = {
-        completed: 'default',
+        completed: 'success',
         pending: 'info',
         cancelled: 'error'
     };
@@ -46,8 +47,8 @@ const BookingCard = ({ booking }) => {
         >
             <CardContent sx={{ display: 'flex', flexGrow: 1 }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingRight: 3, paddingLeft: 1 }}>
-                    <Typography>{formatWeekDayShort(booking.dateTime)}</Typography>
-                    <Typography variant='h4'>{formatDayShort(booking.dateTime)}</Typography>
+                    <Typography>{formatWeekDayShort(booking.startTime)}</Typography>
+                    <Typography variant='h4'>{formatDayShort(booking.startTime)}</Typography>
                 </Box>
                 <Divider orientation="vertical" flexItem />
                 <Box px={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}>
@@ -56,7 +57,7 @@ const BookingCard = ({ booking }) => {
                     </Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
                         <Typography variant='body2' color='text.secondary' sx={{ display: 'flex', alignItems: 'center'}}>
-                            <AccessTimeIcon sx={{ mr: 1 }} /> {formatTimeRange(booking.dateTime, booking.duration)} ({booking.duration} min)
+                            <AccessTimeIcon sx={{ mr: 1 }} /> {`${dayjs(booking.startTime).format('HH:mm')} - ${dayjs(booking.endTime).format('HH:mm')}`} ({booking.duration} min)
                         </Typography>
                         <Typography variant='body2' color='text.secondary' sx={{ display: 'flex', alignItems: 'center'}}>
                             <PersonIcon sx={{ mr: 1 }} /> {booking.employeeName}

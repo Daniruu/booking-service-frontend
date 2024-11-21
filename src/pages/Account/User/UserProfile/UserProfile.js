@@ -6,6 +6,8 @@ import UserCard from '../../UserCard/UserCard';
 import UserDataForm from '../UserDataForm/UserDataForm';
 import UserDataCard from '../UserDataCard/UserDataCard';
 import FavoritesList from '../FavoritesList/FavoritesList';
+import ReviewList from '../../../Business/ReviewList/ReviewList';
+import UserReviewList from '../UserReviewList/UserReviewList';
 
 const UserProfile = () => {
     const [selectedSection, setSelectedSection] = useState('bookings');
@@ -38,7 +40,7 @@ const UserProfile = () => {
                 return (
                     <Stack spacing={2} sx={{ flex: 1}}>
                         <Typography variant='h5' fontWeight={600}>Opinie</Typography>
-                        **TO DO**
+                        <UserReviewList />
                     </Stack>
                 );
             default:

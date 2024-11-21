@@ -22,7 +22,7 @@ const BusinessPage = () => {
     const [searchParams] = useSearchParams();
     const serviceIdFromURL = searchParams.get('serviceId');
     const { user } = useUser();
-    const { businessDetails, fetchBusinessDetails, loading, isFavorite, checkFavoriteStatus, toggleFavorite, fetchBusinessReviews, hasReviewed, checkReviewStatus } = useBusiness();
+    const { businessDetails, fetchBusinessDetails, loading, isFavorite, checkFavoriteStatus, toggleFavorite, fetchBusinessReviews, hasReviewed, checkReviewStatus, hasAccessToReview, checkAccessToReview } = useBusiness();
     const [openModal, setOpenModal] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
@@ -34,6 +34,7 @@ const BusinessPage = () => {
         if (user) {
             checkFavoriteStatus(businessId);
             checkReviewStatus(businessId);
+            checkAccessToReview(businessId);
         }
     }, [businessId]);
 
@@ -84,7 +85,31 @@ const BusinessPage = () => {
                 <Grid2 item size={{ xs: 12, md: 8 }}>
                     <Stack spacing={4}>
                         {!loading ? (
-                            <ImageSlider images={businessDetails?.images} />
+                            <Box sx={{ position: 'relative', height: 300 }}>
+                                <ImageSlider images={businessDetails?.images} />
+                                {businessDetails.averageRating > 0 && (
+                                    <Box 
+                                        sx={{ 
+                                            position: 'absolute', 
+                                            top: 0, 
+                                            right: 0, 
+                                            bgcolor: 'rgba(0, 0, 0, 0.6)', 
+                                            color: '#fff', 
+                                            borderBottomLeftRadius: 6,
+                                            borderTopRightRadius: 6,
+                                            px: 2, 
+                                            py: 0.5, 
+                                            display: 'flex', 
+                                            flexDirection: 'column', 
+                                            alignItems: 'center', 
+                                            justifyContent: 'center' 
+                                        }}
+                                    >
+                                        <Typography variant='h6' fontWeight={600}>{businessDetails.averageRating.toFixed(1)}</Typography>
+                                        <Typography variant='body2' fontSize={12} noWrap>{businessDetails.reviewCount} opinii</Typography>
+                                    </Box>
+                                )}
+                            </Box>
                         ) : (
                             <Skeleton animation='wave' variant='rounded' height={300} width='100%' />
                         )}
@@ -131,14 +156,15 @@ const BusinessPage = () => {
                                 ))}
                             </List>
                         )}
-                        <ReviewList />
-                        {user && (
+                        
+                        {(user && hasAccessToReview) && (
                             hasReviewed ? (
                                 <Typography>**TO DO Edit review **</Typography>
                             ) : (
                                 <AddReviewForm businessId={businessId} />
                             )
                         )}
+                        <ReviewList />
                     </Stack>
                 </Grid2>
 

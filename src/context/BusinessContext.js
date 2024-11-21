@@ -17,6 +17,7 @@ export const BusinessProvider = ({ children }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [reviews, setReviews] = useState(null);
     const [hasReviewed, setHasReviewed] = useState(false);
+    const [hasAccessToReview, setHasAccessToReview] = useState(false);
 
     const fetchBusinesses = async (queryParams) => {
         const url = new URL(`${apiUrl}/businesses/list`);
@@ -132,6 +133,18 @@ export const BusinessProvider = ({ children }) => {
         }
     };
 
+    const checkAccessToReview = async (businessId) => {
+        const url = `${apiUrl}/businesses/${businessId}/reviews/has-access`;
+
+        try {
+            console.log('Checking access to leave review...');
+            const response = await sendRequestWithToken(url, { method: 'GET' }, refreshAccessToken);
+            setHasAccessToReview(response);
+        } catch (error) {
+            showNotification('Nie udało się sprawdzić dostęp do wystawienia', error.message, 'error');
+        }
+    };
+
     return (
         <BusinessContext.Provider value={{ 
             businesses, 
@@ -147,7 +160,9 @@ export const BusinessProvider = ({ children }) => {
             checkFavoriteStatus, 
             fetchBusinesses, 
             fetchBusinessDetails, 
-            toggleFavorite 
+            toggleFavorite,
+            hasAccessToReview,
+            checkAccessToReview
         }}>
             {children}
         </BusinessContext.Provider>

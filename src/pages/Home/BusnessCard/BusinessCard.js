@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Box, Typography, CardActionArea, List, ListItem, ListItemText } from '@mui/material';
+import { Card, CardContent, CardMedia, Box, Typography, CardActionArea, List, ListItem, ListItemText, Chip } from '@mui/material';
 
 const BusinessCard = ({ business }) => {
     const navigate = useNavigate();
@@ -14,12 +14,36 @@ const BusinessCard = ({ business }) => {
     return (
         <Card sx={{ display: 'flex', marginBottom: 2,  minWidth: 800 }} elevation={2}>
             <CardActionArea onClick={handleCardClick} sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                <CardMedia
-                    component='img'
-                    sx={{ width: 300, height: '100%' }}
-                    image={business.primaryImage?.imageUrl}
-                    alt='Business image'
-                />
+                <Box sx={{ position: 'relative', width: 300, height: '100%' }}>
+                    {business.averageRating > 0 && (
+                        <Box 
+                            sx={{ 
+                                position: 'absolute', 
+                                top: 0, 
+                                right: 0, 
+                                bgcolor: 'rgba(0, 0, 0, 0.6)', 
+                                color: '#fff', 
+                                borderBottomLeftRadius: 6,
+                                px: 2, 
+                                py: 0.5, 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignItems: 'center', 
+                                justifyContent: 'center' 
+                            }}
+                        >
+                            <Typography variant='h6' fontWeight={600}>{business.averageRating.toFixed(1)}</Typography>
+                            <Typography variant='body2' fontSize={12} noWrap>{business.reviewCount} opinii</Typography>
+                        </Box>
+                    )}
+                    <CardMedia
+                        component='img'
+                        sx={{ width: 300, height: '100%' }}
+                        image={business.primaryImage?.imageUrl}
+                        alt='Business image'
+                    />
+                </Box>
+                
                 
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                     <CardContent >

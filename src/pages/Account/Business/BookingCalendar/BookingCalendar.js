@@ -40,7 +40,7 @@ const BookingCalendar = () => {
         
         return businessBookings?.find(
             (booking) =>
-                dayjs(booking.dateTime).utc().startOf('minute').isSame(dateTimeToCompare) &&
+                dayjs(booking.startTime).utc().startOf('minute').isSame(dateTimeToCompare) &&
                 booking.employeeId === employeeId
         );
     };
@@ -160,7 +160,7 @@ const BookingCalendar = () => {
                                                         borderTop: time.isHourStart ? '1px solid rgba(224, 224, 224, 1)' : 'none',
                                                         borderBottom: 'none',
                                                         verticalAlign: 'top',
-                                                        p: 0,
+                                                        px: 0.2,
                                                         py: '4px',
                                                         height: rowSpan * 15,
                                                     }}
